@@ -3,19 +3,19 @@
 var request = require('supertest')
 
 describe('Load express server', function () {
-  var serverd
+  var server
 
   beforeEach(function () {
-    serverd = require('server/server')
+    server = require('server/server')
   })
 
   afterEach(function () {
-    serverd.close()
+    server.close()
   })
 
   it('response to /api/code-public', function testSlash (done) {
-    request(serverd)
-      .get('/code-public')
-      .expect(404, done)
+    request(server)
+      .get('/api/code-public')
+      .expect(200, [], done)
   })
 })

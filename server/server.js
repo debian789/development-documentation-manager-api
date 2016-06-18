@@ -4,6 +4,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var expressSesion = require('express-session')
+var mongooseConfig = require('server/config/mongooseConfig')
 var passport = require('passport')
 var Strategy = require('passport-local')
 var path = require('path')
@@ -22,7 +23,7 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')))
 app.use(express.static('public'))
 
 // Middleware para el manejo de datos del formulario
-app.use(bodyParser.urlencoded({extends: false}))
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.use(cookieParser())
