@@ -1,7 +1,7 @@
 'use strict'
 var Router = require('express')
 var CodeSchema = require('server/models/CodeSchema')
-// var Utils = require('server/models/Utils')
+var Utils = require('server/routers/Utils')
 
 var code = Router()
 
@@ -25,10 +25,9 @@ code.get('/code-public/:id', (req, res) => {
     res.json(data)
   })
 })
-code.get('/code', (req, res, next) => {
-  console.log('.....')
-  res.json('hola')
-  //CodeSchema.find({})
+
+code.put('/code-private', Utils.validateAutentication, (req, res) => {
+res.send('hola')
 })
 
 module.exports = code

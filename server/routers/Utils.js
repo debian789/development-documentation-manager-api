@@ -1,7 +1,7 @@
 'use strict'
 
-module.exports = {
-   validateAutentication: function (req, res, next) {
+var Utils = {
+  validateAutentication: function (req, res, next) {
     if (req.isAuthenticated()) {
       next()
     } else {
@@ -9,3 +9,5 @@ module.exports = {
     }
   }
 }
+
+module.exports = Utils

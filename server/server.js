@@ -11,7 +11,6 @@ var path = require('path')
 var expressSession = require('express-session')
 var UserSchema = require('server/models/UserSchema')
 var routerCode = require('server/routers/routerCode')
-// const MongoStore = require('connect-mongo')(expressSession)
 const MongoStore = require('connect-mongo')(expressSession)
 const LocalStrategy = Strategy
 const app = express()
