@@ -10,7 +10,7 @@ let UserSchema = new Schema({
   username: {type: String, required: false},
   salt: String,
   email: String,
-  is_active: { type: Boolean, default: true, required: true }, // activado o deactivado, para controlar el ingreso
+  is_active: { type: Boolean, default: false, required: true }, // activado o deactivado, para controlar el ingreso
   is_administrador: { type: Boolean, default: false }, // Conseder permisos de super administrador
   is_staff: {type: Boolean, default: false} // Permite ingresar al panel administrativo avanzado
 })
@@ -33,22 +33,17 @@ UserSchema.plugin(passportLocalMongoose, {
 UserSchema.plugin(jsonSelect, 'username email')
 
 UserSchema.static('requestActivation', function (id, cb) {
-  this.findById(id).exec().then(
-    function (user) {
-      if (!user || user.is_active) {
-        return cb({code: 400, message: 'Can not request activation : Unknown account or account already activated.'})
-      }
-      return user.seToken(cb)
-    },
-    cb
-  )
+  this.findOne({_id: id}, function (err, user) {
+    if (!user || user.is_active) { cb({code: 400, message: 'Can not request activation : Unknown account or account already activated.'}) }
+    user.setToken(cb)
+  })
 })
 
 UserSchema.static('activate', function (id, token, cb) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return cb({code: 400, message: 'Invalid user id'})
   }
-  this.getByToken(token, {_id: id, activated: false})
+  this.getByToken(token, {_id: id, is_active: false})
   .then(function (user) {
     if (!user) {
       return cb({code: 400, message: "Can't activate account : Bad token or account already activated."})
