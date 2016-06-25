@@ -34,6 +34,10 @@ UserSchema.plugin(jsonSelect, 'username email')
 
 UserSchema.static('requestActivation', function (id, cb) {
   this.findOne({_id: id}, function (err, user) {
+    if (err) {
+      return cb({code: 400, message: 'Error en el servidor'})
+    }
+
     if (!user || user.is_active) { return cb({code: 400, message: 'Can not request activation : Unknown account or account already activated.'}) }
     user.setToken(cb)
   })

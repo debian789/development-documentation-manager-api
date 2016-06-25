@@ -110,7 +110,7 @@ describe ('UsersSchema: models', function () {
           })
         })
 
-        it ('should not request activation if already is_active', function (done) {
+        it ('should not request activation if already is_active = true', function (done) {
           UserSchema.register({'username': 'angel', 'email': 'neozaru@foo.org', 'is_active': true}, 'mypassword7', function (err, account) {
             expect(err).to.equal(null)
             expect(account.token).to.equal(undefined)
@@ -122,17 +122,13 @@ describe ('UsersSchema: models', function () {
         })
       })
 
-
-
-        describe('tokens : activation validation', function () {
-          it('should activate account with proper token', function (done) {
-            UserSchema.register({'username': 'neozaru', 'email': 'neozaru@foo.org'}, 'mypassword', function (err, new_user) {
+      describe('tokens : activation validation', function () {
+        it('should activate account with proper token', function (done) {
+          UserSchema.register({'username': 'neozaru', 'email': 'neozaru@foo.org'}, 'mypassword', function (err, new_user) {
+            expect(err).to.be.null
+            /* Activation function returns the user */
+            UserSchema.requestActivation(new_user.id, function (err, user) {
               expect(err).to.be.null
-
-              /* Activation function returns the user */
-              UserSchema.requestActivation(new_user.id, function (err, user) {
-                expect(err).to.be.null
-
                 UserSchema.activate(new_user.id, user.token, function (err, is_active_user) {
                   expect(err).to.be.null
                   expect(is_active_user).to.have.property('is_active', true)
@@ -146,31 +142,24 @@ describe ('UsersSchema: models', function () {
                     done()
                   })
                 })
+            })
+          })
+        })
+
+        it('should not activate account with bad token', function (done) {
+          UserSchema.register({'username': 'neozaru', 'email': 'neozaru@foo.org'}, 'mypassword', function (err, new_user) {
+            expect(err).to.be.null
+            /* Activation function returns the user */
+            UserSchema.requestActivation(new_user.id, function (err, user) {
+              expect(err).to.be.null
+              UserSchema.activate(new_user.id, 'BADTOKEN', function (err, activated_user) {
+                expect(err).to.be.not.null
+                done()
               })
             })
           })
-
-    it('should not activate account with bad token', function (done) {
-      UserSchema.register({'username': 'neozaru', 'email': 'neozaru@foo.org'}, 'mypassword', function (err, new_user) {
-        expect(err).to.be.null
-
-        /* Activation function returns the user */
-        UserSchema.requestActivation(new_user.id, function (err, user) {
-          expect(err).to.be.null
-          UserSchema.activate(new_user.id, 'BADTOKEN', function (err, activated_user) {
-            expect(err).to.be.not.null
-            done()
-          })
         })
       })
-    })
-
-
-
- })
-
-
-
     })
   })
 })
