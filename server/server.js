@@ -15,7 +15,6 @@ var routerCode = require('server/routers/routerCode')
 const MongoStore = require('connect-mongo')(expressSession)
 // const LocalStrategy = Strategy
 const app = express()
-const server = http.createServer(app)
 const port = process.env.PORT || 3000
 
 // Manejo de archivos estaticos
@@ -48,6 +47,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hjs')
 
 app.use('/api', routerCode)
+const server = http.createServer(app)
 
 server.listen(port)
 console.log(`server iniciado en el puerto: ${port}`)

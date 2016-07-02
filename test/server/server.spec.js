@@ -1,6 +1,19 @@
 'use strict'
 
 var request = require('supertest') // Test servicios
+// var Mongoose = require('mongoose').Mongoose;
+// var mongoose = new Mongoose();
+// /* Creates in-memory db */
+// var mockgoose = require('mockgoose');
+// mockgoose(mongoose);
+//
+// before(function(done) {
+//     mockgoose(mongoose).then(function() {
+//         mongoose.connect('mongodb://localhost/test', function(err) {
+//             done(err);
+//         });
+//     });
+// });
 describe('Load express server', function () {
   var server
   var UserSchema

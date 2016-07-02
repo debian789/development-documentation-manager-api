@@ -6,7 +6,6 @@
   "scripts": {
     "test": "NODE_PATH=. DB_Conection='test'  mocha  -R spec test/server/*.spec.js && NODE_PATH=. DB_Conection='test' mocha -R spec --recursive  test/server/**/*.spec.js",
     "test2": "NODE_PATH=. DB_Conection='test' istanbul cover _mocha -- -R spec test/server/*.spec.js && NODE_PATH=. DB_Conection='test' mocha -R spec --recursive  test/server/**/*.spec.js",
-    "test2": "NODE_PATH=. DB_Conection='test' istanbul cover _mocha -- -R spec test/server/*.spec.js && NODE_PATH=. DB_Conection='test' mocha -R spec --recursive  test/server/**/*.spec.js",
     "cp-static": "cp -r  cliente/static/ public/static",
     "dist": "babel server/server.js server/**/*.js  --out-dir dist --presets es2015,react",
     "server2": "NODE_PATH=. babel-node  server/server --presets es2015,react ",
@@ -53,6 +52,7 @@
     "chai": "^3.5.0",
     "istanbul": "^0.4.3",
     "mocha": "^2.5.3",
+    "mockgoose": "^6.0.3",
     "supertest": "^1.2.0"
   },
   "standard": {

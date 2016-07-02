@@ -1,16 +1,36 @@
-'use strict';
+'use strict'
 // import the moongoose helper utilities
-var utils = require('test/server/model/UtilDB')
+ var utils = require('test/server/model/UtilDB')
 var expect = require('chai').expect
-// import our User mongoose model
+ //import our UserSchema mongoose model
 var UserSchema = require('server/models/UserSchema')
+
+
+// var Mongoose = require('mongoose').Mongoose;
+// var mongoose = new Mongoose();
+// /* Creates in-memory db */
+// var mockgoose = require('mockgoose');
+// mockgoose(mongoose);
+//
+// before(function(done) {
+//     mockgoose(mongoose).then(function() {
+//         mongoose.connect('mongodb://localhost/test', function(err) {
+//             done(err);
+//         });
+//     });
+// });
+
 var userData = {
   username: 'Angel',
   password: '1234567',
   email: 'debian789@gmail.com'
 }
 
+
+
 describe ('UsersSchema: models', function () {
+
+
   describe ('Create user', function () {
     // No username
     it ('should not fail if no username', function (done) {

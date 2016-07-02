@@ -6,6 +6,7 @@ var jsonSelect = require('mongoose-json-select')
 var mongooseToken = require('mongoose-token')
 var validator = require('validator')
 let Schema = mongoose.Schema
+
 let UserSchema = new Schema({
   username: {type: String, required: false},
   salt: String,
