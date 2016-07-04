@@ -9,8 +9,8 @@ let Schema = mongoose.Schema
 
 let UserSchema = new Schema({
   username: {type: String, required: false},
-  salt: String,
-  email: String,
+  // salt: String,
+  //   email: String,
   is_active: { type: Boolean, default: false, required: true }, // activado o deactivado, para controlar el ingreso
   is_administrador: { type: Boolean, default: false }, // Conseder permisos de super administrador
   is_staff: {type: Boolean, default: false} // Permite ingresar al panel administrativo avanzado
