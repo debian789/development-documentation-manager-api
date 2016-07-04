@@ -14,33 +14,28 @@ function MailStub(options) {
 
 MailStub.prototype.send = function(mail, cb) {
   if (this.options.customCallback) {
-    this.options.customCallback(mail);
+    this.options.customCallback(mail)
   }
   cb(null);
-};
+}
 
 var app = require('server/server')()
 describe('Users API test  ', function() {
-
   beforeEach(function() {
-      mockgoose.reset();
-    });
-
-
+      mockgoose.reset()
+  })
 
   describe('Users API', function() {
-
     it('should register users and send validation email', function(done) {
-      var lastMail = {};
+      var lastMail = {}
       mails.init(new MailStub({
         customCallback: function(mail) {
-          lastMail = mail;
+          lastMail = mail
         }
       }),
       {
         statics: {baseuri: "http://localhost/"}
-      });
-
+      })
 
       async.series([
         function(callback){
@@ -64,18 +59,9 @@ describe('Users API test  ', function() {
           done();
         }
       ])
-
-
-
-
-
-
-
-
-    });
+    })
 
     it('should not register users with wrong username, password or email', function(done) {
-
       async.series([
         function(callback){
           request(app)
@@ -122,7 +108,6 @@ describe('Users API test  ', function() {
              .expect(200, function(err) {
                return err ? done(err) : callback();
              });
-
          },
          function(callback){
            request(app)
@@ -135,115 +120,109 @@ describe('Users API test  ', function() {
       ])
     });
 
+    it('should activate registered users', function(done) {
+      var lastMail = {};
+      mails.init(new MailStub({
+        customCallback: function(mail) {
+          lastMail = mail;
+        }
+      }),
+      {
+        statics: {baseuri: "http://localhost/"}
+      });
 
+      var userid = 0;
+      /* I saw the future */
+      async.series([
+        function(callback){
+          request(app)
+            .post('/api/users')
+            .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
+            .expect(200)
+            .end(function(err, res) {
+              userid = res.body._id;
+              return err ? done(err) : callback();
+            })
+        },
+        function(callback){
+          expect(lastMail.data.text).to.not.be.empty;
+          /* Extract validation token */
+          var pattern = new RegExp(/&token=([a-z0-9]+)/);
+          var matches = lastMail.data.text.match(pattern);
+          var token = matches[1];
 
+          request(app)
+            .post('/api/users/'+userid+'/activate')
+            .send({token: token})
+            .expect(200)
+            .end(function(err, res) {
+              done(err);
+            })
+        }
+      ])
+    })
 
-    // it('should activate registered users', function(done) {
-    //
-    //   var lastMail = {};
-    //   mails.init(new MailStub({
-    //     customCallback: function(mail) {
-    //       lastMail = mail;
-    //     }
-    //   }),
-    //   {
-    //     statics: {baseuri: "http://localhost/"}
-    //   });
-    //
-    //   var userid = 0;
-    //   /* I saw the future */
-    //   futures.sequence().then(function(next) {
-    //     request(app)
-    //       .post('/api/users')
-    //       .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
-    //       .expect(200)
-    //       .end(function(err, res) {
-    //         userid = res.body._id;
-    //         return err ? done(err) : next();
-    //       })
-    //   })
-    //   .then(function(next) {
-    //     expect(lastMail.data.text).to.not.be.empty;
-    //     /* Extract validation token */
-    //     var pattern = new RegExp(/&token=([a-z0-9]+)/);
-    //     var matches = lastMail.data.text.match(pattern);
-    //     var token = matches[1];
-    //
-    //     request(app)
-    //       .post('/api/users/'+userid+'/activate')
-    //       .send({token: token})
-    //       .expect(200)
-    //       .end(function(err, res) {
-    //         done(err);
-    //       })
-    //
-    //   });
-    // });
-    //
-    // it('should not activate when no token', function(done) {
-    //
-    //   var userid = 0;
-    //   /* I saw the future */
-    //   futures.sequence().then(function(next) {
-    //     request(app)
-    //       .post('/api/users')
-    //       .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
-    //       .expect(200)
-    //       .end(function(err, res) {
-    //         userid = res.body._id;
-    //         return err ? done(err) : next();
-    //       })
-    //   })
-    //   .then(function(next) {
-    //
-    //     request(app)
-    //       .post('/api/users/'+userid+'/activate')
-    //       .expect(400)
-    //       .end(done);
-    //   });
-    // });
-    //
-    // it('should not activate when wrong token', function(done) {
-    //
-    //   var userid = 0;
-    //   /* I saw the future */
-    //   futures.sequence().then(function(next) {
-    //     request(app)
-    //       .post('/api/users')
-    //       .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
-    //       .expect(200)
-    //       .end(function(err, res) {
-    //         userid = res.body._id;
-    //         return err ? done(err) : next();
-    //       })
-    //   })
-    //   .then(function(next) {
-    //
-    //     request(app)
-    //       .post('/api/users/'+userid+'/activate')
-    //       .send({token: "BADTOKEN"})
-    //       .expect(400)
-    //       .end(done);
-    //   });
-    // });
-    //
-    // it('should not activate when wrong user id', function(done) {
-    //
-    //   var userid = 0;
-    //   /* I saw the future */
-    //   futures.sequence().then(function(next) {
-    //
-    //     request(app)
-    //       .post('/api/users/aaaaaa/activate')
-    //       .send({token: "WHATEVER"})
-    //       .expect(400)
-    //       .end(done);
-    //   });
-    // });
+    it('should not activate when no token', function(done) {
+      var userid = 0;
+      /* I saw the future */
 
+      async.series([
+        function(callback){
+          request(app)
+            .post('/api/users')
+            .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
+            .expect(200)
+            .end(function(err, res) {
+              userid = res.body._id;
+              return err ? done(err) : callback();
+            })
+        },
+        function(callback){
+          request(app)
+            .post('/api/users/'+userid+'/activate')
+            .expect(400)
+            .end(done);
+        }
+      ])
+    });
 
+    it('should not activate when wrong token', function(done) {
+      var userid = 0;
+      /* I saw the future */
+      async.series([
+        function(callback){
+          request(app)
+            .post('/api/users')
+            .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
+            .expect(200)
+            .end(function(err, res) {
+              userid = res.body._id;
+              return err ? done(err) : callback();
+            })
+        },
+        function(callback){
+          request(app)
+            .post('/api/users/'+userid+'/activate')
+            .send({token: "BADTOKEN"})
+            .expect(400)
+            .end(done);
+        }
+      ])
+    })
 
+    it('should not activate when wrong user id', function(done) {
 
-
-  });
-});
+      var userid = 0;
+      /* I saw the future */
+      async.series([
+        function(callback) {
+          request(app)
+            .post('/api/users/aaaaaa/activate')
+            .send({token: "WHATEVER"})
+            .expect(400)
+            .end(done);
+        }
+      ])
+    })
+  })
+})

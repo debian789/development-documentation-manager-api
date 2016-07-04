@@ -4,7 +4,7 @@
   "description": "Software para la gestion de codigo, comandos y notas de desarrollo",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_PATH=. DB_Conection='test' mocha -R spec --recursive  test/server/model/*.spec.js",
+    "test": "NODE_PATH=. DB_Conection='test' mocha -R spec --recursive  test/server/**/*.spec.js",
     "test1": "NODE_PATH=. DB_Conection='test' mocha -R spec --recursive  test/server/**/*.spec.js",
     "test2": "NODE_PATH=. DB_Conection='test' istanbul cover _mocha -- -R spec test/server/*.spec.js && NODE_PATH=. DB_Conection='test' mocha -R spec --recursive  test/server/**/*.spec.js",
     "cp-static": "cp -r  cliente/static/ public/static",
