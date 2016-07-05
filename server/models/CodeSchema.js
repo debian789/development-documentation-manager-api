@@ -5,15 +5,15 @@ let Schema = mongoose.Schema
 var LenguageSchema = require('server/models/LenguageSchema')
 
 let CodeSchema = new Schema({
-  title: String,
+  title: {type:String, required: true},
   description: String,
   lenguage: {type: Schema.ObjectId, ref: 'LenguageSchema'},
   links: String,
   code: String,
-  is_public: Boolean,
-  is_edit: Boolean,
-  creationDate: {type: Date, default: Date.now}
+  is_public: {type:Boolean, default: false}, // true lo pueden visualizar los otros usuarios
+  is_edit: Boolean, // si otras personas pueden editar el codigo
+  creationDate: {type: Date, default: Date.now},
+  user: {type: Schema.ObjectId, ref:'User'}
 })
 
-// export default mongoose.model('Code', CodeSchema)
 module.exports = mongoose.model('Code', CodeSchema)
