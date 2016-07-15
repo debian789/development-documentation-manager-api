@@ -9,7 +9,7 @@ var utils = require('test/server/model/UtilDB')
 
 
 describe('CodeSchema: models', function () {
-  describe('Creation code', function () {
+  describe('Administration code', function () {
     var userTemp;
     beforeEach(function (done) {
       UserSchema.register({'username': 'debian789', 'email': 'debian789@gmail.com'}, 'mypassword', function (err, new_user) {
@@ -35,7 +35,7 @@ describe('CodeSchema: models', function () {
       })
     })
 
-    // create code not error
+    // create code is public false
     it ('Should create code is_public false', function (done) {
       var code = new  CodeSchema()
 
@@ -55,7 +55,7 @@ describe('CodeSchema: models', function () {
 
     })
 
-    // create code not error
+    // create code is public true
     it ('Should create code is_public true', function (done) {
       var code = new  CodeSchema()
 
@@ -76,9 +76,7 @@ describe('CodeSchema: models', function () {
 
     })
 
-
-
-    // query all by user
+    // query all by user public true
     it ('Should query all by user', function (done) {
 
       var code = new  CodeSchema()
@@ -87,22 +85,19 @@ describe('CodeSchema: models', function () {
       code.description = 'copy and paste code all '
       code.code = '<H1>copy and paste</H1>'
       code.user = userTemp._id
+      code.is_public = true
       code.save(function(err, data) {
         expect(err).to.equal(null)
 
-        CodeSchema.find({user:userTemp._id}, function (err, data) {
+        CodeSchema.find({is_public:true, user:userTemp._id}, function (err, data) {
           expect(data.length).to.equal(1)
           done()
         })
-
-
       })
-
     })
 
-
-        // query all by user
-        it ('Should query all by is_public false', function (done) {
+    // query all by user
+    it ('Should query all by is_public false', function (done) {
 
           var code = new  CodeSchema()
 
@@ -113,7 +108,7 @@ describe('CodeSchema: models', function () {
           code.save(function(err, data) {
             expect(err).to.equal(null)
 
-            CodeSchema.find({is_public:false, user: userTemp._id}, function (err, data) {
+            CodeSchema.find({user: userTemp._id}, function (err, data) {
               expect(err).to.equal(null)
               expect(data.length).to.equal(1)
               expect()
@@ -151,7 +146,6 @@ describe('CodeSchema: models', function () {
 
         })
 
-
     // edit
     it ('should allow edit a Code', function (done) {
       var code = new CodeSchema()
@@ -164,13 +158,16 @@ describe('CodeSchema: models', function () {
         expect(err).to.equal(null)
         CodeSchema.findOne({user:userTemp._id, _id: data._id }, function (err, dataFind) {
           expect(err).to.equal(null)
+          expect(data.is_public).to.equal(false)
           dataFind.title = 'Buscar Archivos'
           dataFind.description = 'nueva description'
+          dataFind.is_public = true
 
           dataFind.save(function (err, dataSave) {
             expect(dataSave.title).to.equal('Buscar Archivos')
             expect(dataSave.description).to.equal('nueva description')
             expect(String(dataSave._id)).to.equal(String(data._id))
+            expect(dataSave.is_public).to.equal(true)
               done()
           })
 
@@ -178,9 +175,7 @@ describe('CodeSchema: models', function () {
       })
     })
 
-
     // Delete
-
     it ('Should allow delete a Code', function (done) {
       var code = new CodeSchema()
 
@@ -201,7 +196,5 @@ describe('CodeSchema: models', function () {
 
 
     })
-
-
   })
 })
