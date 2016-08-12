@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
 var mails = require('server/config/mails');
 var expect = require('chai').expect;
+var app = require('server/server')()
 
 mockgoose(mongoose);
 
@@ -19,7 +20,6 @@ MailStub.prototype.send = function(mail, cb) {
   cb(null);
 }
 
-var app = require('server/server')()
 describe('Users API test  ', function() {
   beforeEach(function() {
       mockgoose.reset()

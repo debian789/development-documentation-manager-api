@@ -37,7 +37,11 @@ generic.saveNew = function(Model, obj, fields, required, cb) {
         return cb(null, missing, null);
     }
 
-    item.save(function(err) {
+
+    item.save(function(err, data) {
+        console.log(data)
+        console.log('..-...---...--...')
+        debugger
         return cb(err, [], item);
     });
 }

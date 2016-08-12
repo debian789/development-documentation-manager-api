@@ -83,6 +83,20 @@ function activateUser(callback) {
   })
 }
 
+function createCommand (user, itemCommands, callback) {
+  var commando = new CommandsSchema()
+  commando.title = 'Listar directorios'
+  commando.description = 'mostrar todo'
+  commando.user = user._id
+
+  if (itemCommands) {
+      commando.commandItems.push(itemCommands)
+  }
+
+  commando.save(function (err, datos) {
+    callback(err, datos)
+  })
+}
 
 
 describe('CommandsSchema: Model', function () {
@@ -98,26 +112,15 @@ describe('CommandsSchema: Model', function () {
 
     // Crear un comando sin item
     it ('Crear un comando sin item', function (done) {
-
-      var commando = new CommandsSchema()
-      commando.title = 'Listar directorios'
-      commando.description = 'mostrar todo'
-      commando.user = userTemp._id
-
-      commando.save(function (err, datos) {
+      createCommand(userTemp, null, function (err, commandSave) {
         expect(err).to.equal(null)
-        expect(datos.title).to.equal('Listar directorios')
-        expect(datos.description).to.equal('mostrar todo')
+        expect(commandSave.title).to.equal('Listar directorios')
+        expect(commandSave.description).to.equal('mostrar todo')
         done()
-
-
       })
-
     })
     // crear un comando con items
     it ('Crear un comando con items', function (done) {
-
-      var commando = new CommandsSchema()
       var commandoItem = new CommandItemSchema()
 
       commandoItem.command = 'ls -la'
@@ -125,12 +128,8 @@ describe('CommandsSchema: Model', function () {
 
       commandoItem.save(function (err, dataItem) {
         expect(err).to.equal(null)
-        commando.title = 'Listar directorios'
-        commando.description = 'mostrar todo'
-        commando.user = userTemp._id
-        commando.commandItems.push(dataItem)
 
-        commando.save(function (err, datos) {
+        createCommand(userTemp, dataItem, function (err, datos) {
           expect(err).to.equal(null)
           expect(datos.title).to.equal('Listar directorios')
           expect(datos.description).to.equal('mostrar todo')
@@ -139,9 +138,6 @@ describe('CommandsSchema: Model', function () {
           done()
         })
       })
-
-
-
     })
 
     // cambiar el estado del comando is_public true
