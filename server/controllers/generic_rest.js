@@ -16,7 +16,9 @@ generic.index = function(Model, req, res) {
 
     });
 }
-
+/*
+* field corresponde a los campos que se van a guadar en la DB
+*/
 generic.create = function(Model, fields, required, req, res) {
     generic_functions.saveNew(Model, req.body, fields, required, function(err, missing, item) {
         if (!_.isEmpty(missing)) {

@@ -9,6 +9,10 @@ var CommandsInit = function(CommandModel) {
 
 var CommandControllers = {}
 
+  // consultar
+  CommandControllers.index = function (req, res) {
+    return Generic_rest.index(CommandsSchema, req, res)
+  }
   // buscar
   // editar
   // eliminar
@@ -16,10 +20,8 @@ var CommandControllers = {}
   // crear
   CommandControllers.create = function (req, res) {
       return  Generic_rest.create(CommandsSchema,
-        ['title', 'description', 'user']
-        ,[
-          'title',
-          'user'], req, res)
+        ['title', 'description', 'is_edit','is_public', 'user'],
+        ['title', 'user'], req, res)
   }
 
   return CommandControllers
