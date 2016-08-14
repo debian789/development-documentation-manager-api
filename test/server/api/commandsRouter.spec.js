@@ -25,40 +25,39 @@ MailStub.prototype.send = function(mail, cb) {
 var server = require('server/server')()
 //var server = request.agent("http://localhost:3000")
 describe('CommandControllers', function () {
-  beforeEach(function() {
-      mockgoose.reset()
+  var idUserTemp = ''
+  var lastMail = {};
+
+  beforeEach(function(done) {
+    mockgoose.reset()
+    
+    mails.init(new MailStub({
+     customCallback: function(mail) {
+       lastMail = mail;
+     }
+    }),
+    {
+     statics: {baseuri: "http://localhost/"}
+    });
+
+    request(server)
+      .post('/api/users')
+      .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
+      .expect(200)
+      .end(function(err, res) {
+        console.log('ingreso')
+        expect(res.body).to.have.property("_id");
+        expect(res.body).to.have.property("username", "neozaru");
+        expect(res.body).to.have.property("email", "neozaru@mailoo.org");
+        idUserTemp = res.body._id
+        done()
+        //return err ? done(err) : callback();
+      })
   })
 
   describe('Functionalidades de CommandControllers', function () {
-    it('Crear un comando sin problemas', function (done) {
-
-      var lastMail = {};
-      mails.init(new MailStub({
-       customCallback: function(mail) {
-         lastMail = mail;
-       }
-      }),
-      {
-       statics: {baseuri: "http://localhost/"}
-      });
-      var idUserTemp = ''
-
-      
-
+    it('Crear un comando y obtenerlo', function (done) {
       async.series([
-        function(callback) {
-          request(server)
-            .post('/api/users')
-            .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
-            .expect(200)
-            .end(function(err, res) {
-              expect(res.body).to.have.property("_id");
-              expect(res.body).to.have.property("username", "neozaru");
-              expect(res.body).to.have.property("email", "neozaru@mailoo.org");
-              idUserTemp = res.body._id
-              return err ? done(err) : callback();
-            })
-        },
         function(callback) {
           debugger
           request(server)
