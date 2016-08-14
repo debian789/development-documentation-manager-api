@@ -1,6 +1,8 @@
-var CommandItemSchema = require('server/models/CommandItemSchema')
+var ItemsCommandSchema = require('server/models/ItemsCommandSchema')
 var CommandsSchema = require('server/models/CommandsSchema')
 var Generic_rest = require('server/controllers/generic_rest')
+
+
 
 var CommandsInit = function(CommandModel) {
 

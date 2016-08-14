@@ -3,11 +3,11 @@ import mongoose from 'mongoose'
 let Schema = mongoose.Schema
 
 let NoteSchema = new Schema({
-  title: String,
+  title: {type: String, required: true},
   text: String,
   checklist: [{type: String}],
-  is_public: Boolean,
-  is_edit: Boolean
+  is_public: {type: Boolean, default: false},
+  is_edit: {type: Boolean, default: false}
 })
 
-export default mongoose.model('Note', NoteSchema)
+module.exports =  mongoose.model('Note', NoteSchema)

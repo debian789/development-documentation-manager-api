@@ -1,16 +1,16 @@
 'use strict'
 var mongoose = require('mongoose')
-var ComandSchema = require('server/models/CommandItemSchema')
+var ItemsComandSchema = require('server/models/ItemsCommandSchema')
 let Schema = mongoose.Schema
 
 let CommandsSchema = new Schema({
-  title: String,
-  description: String,
+  title: {type: String, required: true},
+  description: {type: String, required: false},
   is_edit: {type: Boolean, default: false},
   is_public: {type: Boolean, default: false},
   dateCreate: {type: Date, default: Date.now},
   user: {type: Schema.ObjectId, ref:'User'},
-  commandItems: [{type: Schema.ObjectId, ref: 'ComandItemSchema'}]
+  ItemsCommand: [{type: Schema.ObjectId, ref: 'ItemsComandSchema'}]
 })
 
 module.exports = mongoose.model('Commands', CommandsSchema)

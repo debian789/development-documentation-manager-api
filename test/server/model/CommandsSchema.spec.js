@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect
 var async = require('async')
-var CommandItemSchema = require('server/models/CommandItemSchema')
+var ItemsCommandSchema = require('server/models/ItemsCommandSchema')
 var CommandsSchema = require('server/models/CommandsSchema')
 var UserSchema = require('server/models/UserSchema')
 
@@ -19,7 +19,7 @@ function commandValid(user,itemCommand,callback) {
   commando.title = 'Test prueba'
   commando.description = 'Prueba de commando'
   commando.user = user._id
-  commando.commandItems.push(itemCommand)
+  commando.ItemsCommand.push(itemCommand)
   commando.save(function (err, datos) {
     expect(err).to.equal(null)
     expect(datos.title).to.equal('Test prueba')
@@ -32,7 +32,7 @@ function commandValid(user,itemCommand,callback) {
 function commandItemValid(found_user, callback) {
   // Comando Item inicial
 
-  var comandoItem = new CommandItemSchema()
+  var comandoItem = new ItemsCommandSchema()
   comandoItem.command = 'ls -la'
   comandoItem.description = 'Listar informacion'
 
@@ -90,7 +90,7 @@ function createCommand (user, itemCommands, callback) {
   commando.user = user._id
 
   if (itemCommands) {
-      commando.commandItems.push(itemCommands)
+      commando.ItemsCommand.push(itemCommands)
   }
 
   commando.save(function (err, datos) {
@@ -121,7 +121,7 @@ describe('CommandsSchema: Model', function () {
     })
     // crear un comando con items
     it ('Crear un comando con items', function (done) {
-      var commandoItem = new CommandItemSchema()
+      var commandoItem = new ItemsCommandSchema()
 
       commandoItem.command = 'ls -la'
       commandoItem.description = 'mostrar directorios'
@@ -133,8 +133,8 @@ describe('CommandsSchema: Model', function () {
           expect(err).to.equal(null)
           expect(datos.title).to.equal('Listar directorios')
           expect(datos.description).to.equal('mostrar todo')
-          expect(datos.commandItems).to.be.an('array')
-          expect(datos.commandItems[0]).to.equal(dataItem._id)
+          expect(datos.ItemsCommand).to.be.an('array')
+          expect(datos.ItemsCommand[0]).to.equal(dataItem._id)
           done()
         })
       })
@@ -249,7 +249,7 @@ describe('CommandsSchema: Model', function () {
         data.title = newTitle
         data.is_public= true
         data.is_edit = true
-        console.log(data.commandItems)
+        console.log(data.ItemsCommand)
         // deberia poder crear un item de comando previo y enlazarlo
         // y con este asegurar que se creo, luego en la funcion de guadar, seria
         // modificar le valor para  que retornada otro datos

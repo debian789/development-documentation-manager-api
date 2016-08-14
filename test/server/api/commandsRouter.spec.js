@@ -8,6 +8,20 @@ var CommandControllers = require('server/controllers/CommandControllers')
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
+var mails = require('server/config/mails');
+
+function MailStub(options) {
+  this.options = options || {};
+  this.name = "MailStub";
+}
+
+MailStub.prototype.send = function(mail, cb) {
+  if (this.options.customCallback) {
+    this.options.customCallback(mail);
+  }
+  cb(null);
+};
+
 var server = require('server/server')()
 //var server = request.agent("http://localhost:3000")
 describe('CommandControllers', function () {
@@ -17,35 +31,46 @@ describe('CommandControllers', function () {
 
   describe('Functionalidades de CommandControllers', function () {
     it('Crear un comando sin problemas', function (done) {
-async.series([
-  function(callback) {
-    request(server)
-      .post('/api/users')
-      .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
-      .expect(200)
-      .end(function(err, res) {
-        expect(res.body).to.have.property("_id");
-        expect(res.body).to.have.property("username", "neozaru");
-        expect(res.body).to.have.property("email", "neozaru@mailoo.org");
-         return err ? done(err) : callback();
-      })
 
-      // return err ? done(err) : cb();
-  },
-  function(callback) {
-    request(server)
-    .post('/api/commands')
-    .send({'title':'hola mundo','user':'1'})
-    .expect(200)
-    .end(function(err, res) {
+      var lastMail = {};
+      mails.init(new MailStub({
+       customCallback: function(mail) {
+         lastMail = mail;
+       }
+      }),
+      {
+       statics: {baseuri: "http://localhost/"}
+      });
+      var idUserTemp = ''
 
-      console.log(res.body)
-      console.log('................')
-      return   done()
-    })
-    //  return done();
-  }
-])
+      
+
+      async.series([
+        function(callback) {
+          request(server)
+            .post('/api/users')
+            .send({"username": "neozaru", "email": "neozaru@mailoo.org", "password": "mypassword"})
+            .expect(200)
+            .end(function(err, res) {
+              expect(res.body).to.have.property("_id");
+              expect(res.body).to.have.property("username", "neozaru");
+              expect(res.body).to.have.property("email", "neozaru@mailoo.org");
+              idUserTemp = res.body._id
+              return err ? done(err) : callback();
+            })
+        },
+        function(callback) {
+          debugger
+          request(server)
+          .post('/api/commands')
+          .send({'title':'hola mundo','user':idUserTemp})
+          .expect(200)
+          .end(function(err, res) {
+            done()
+          })
+          //  return done();
+        }
+      ])
 
 
 

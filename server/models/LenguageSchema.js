@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 let Schema = mongoose.Schema
 
 let LenguageSchema = new Schema({
-  name: String
+  name: {type: String, required: true}
 })
 
 module.exports = mongoose.model('Lenguage', LenguageSchema)
