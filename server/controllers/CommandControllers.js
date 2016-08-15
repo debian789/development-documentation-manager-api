@@ -20,7 +20,7 @@ var CommandControllers = {}
   // crear
   CommandControllers.create = function (req, res) {
       return  Generic_rest.create(CommandsSchema,
-        ['title', 'description', 'is_edit','is_public', 'user'],
+        ['title', 'description', 'is_edit','is_public', 'user', 'itemsCommand'],
         ['title', 'user'], req, res)
   }
 

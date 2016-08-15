@@ -74,7 +74,7 @@ describe('CommandControllers', function () {
             expect(res.body).to.have.property('description', 'is command')
             expect(res.body).to.have.property('is_edit', false)
             expect(res.body).to.have.property('is_public', false)
-            expect(res.body).to.have.property('ItemsCommand')
+            expect(res.body).to.have.property('itemsCommand')
             return err ? done(err) : callback()
           })
         }, function(callback) {
@@ -91,7 +91,33 @@ describe('CommandControllers', function () {
             expect(res.body).to.have.property('title', 'Hello world !')
             expect(res.body).to.have.property('is_edit', true)
             expect(res.body).to.have.property('is_public', true)
-            expect(res.body).to.have.property('ItemsCommand')
+            expect(res.body).to.have.property('itemsCommand')
+            return err ? done(err) : callback()
+          })
+        },function(callback) {
+          request(server)
+          .post('/api/commands')
+          .send({
+            'title':'Files linux',
+            'user':idUserTemp,
+            'is_edit': true,
+            'is_public': true,
+            'itemsCommand': [{
+                command: 'ls -la',
+                description: 'View files and directory'
+              },{
+                command: 'mkdir name',
+                description: 'Create directory'
+              }
+            ]
+          })
+          .expect(201)
+          .end(function(err, res) {
+            expect(res.body).to.have.property('title', 'Files linux')
+            expect(res.body).to.have.property('is_edit', true)
+            expect(res.body).to.have.property('is_public', true)
+            expect(res.body).to.have.property('itemsCommand')
+            expect(res.body.itemsCommand).to.have.length(2)
             return err ? done(err) : callback()
           })
         }, function (callback) {
@@ -100,7 +126,7 @@ describe('CommandControllers', function () {
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
-            expect(res.body).to.have.length(2)
+            expect(res.body).to.have.length(3)
             expect(res.body[0]).to.have.property('title', 'hola mundo')
             expect(res.body[0]).to.have.property('is_edit', false)
             expect(res.body[1]).to.have.property('title', 'Hello world !')
