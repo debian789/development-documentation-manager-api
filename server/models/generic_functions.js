@@ -20,8 +20,29 @@ generic.copyFields = function(source, target, fields, required) {
 /* DB methods */
 generic.find = function(Model, cb) {
     return Model.find(function(err, items) {
-        return cb(err, items);
-    });
+      return cb(err, items);
+    })
+}
+
+generic.findWithParameter = function(Model, search,  cb) {
+    var perPage = 1;
+    var page= 1;
+     Model.find({},function(err, items) {
+      return cb(err, items);
+    })
+
+    // var search = search ? search : {};
+    // debugger;
+    // return Model.find({})
+    //   .limit(perPage)
+    //   .skip(perPage * page)
+    //   // .sort()
+    //   .exec(function(err, items) {
+    //     console.log('----------------------------------')
+    //     console.log(items)
+    //     console.log('----------------------------------')
+    //     return cb(err, items);
+    //   });
 }
 
 generic.findById = function(Model, id, cb) {

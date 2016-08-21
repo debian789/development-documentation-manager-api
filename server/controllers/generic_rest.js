@@ -6,7 +6,7 @@ var generic = {};
 
 
 generic.index = function(Model, req, res) {
-    return generic_functions.find(Model, function(err, items) {
+    return generic_functions.findWithParameter(Model, req.body, function(err, items) {
         if (err) {
             winston.error(err);
             return res.sendStatus(500);
