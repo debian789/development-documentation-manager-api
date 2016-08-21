@@ -23,7 +23,7 @@ MailStub.prototype.send = function (mail, cb) {
   cb(null)
 }
 
-var server = require('server/server')()
+var server = require('server/app')()
 // var server = request.agent('http://localhost:3000')
 describe('CommandPublicControllers', function () {
   var idUserTemp = ''
@@ -57,7 +57,6 @@ describe('CommandPublicControllers', function () {
   describe('Functionalidades de CommandPublicControllers', function () {
 
     it('Crear un comando y obtenerlo', function (done) {
-      debugger;
       debugger;
       async.series([
         // query all return {}
@@ -147,7 +146,7 @@ describe('CommandPublicControllers', function () {
             expect(res.body[0]).to.have.property('is_edit', false)
             expect(res.body[1]).to.have.property('title', 'Hello world !')
             expect(res.body[1]).to.have.property('is_edit', true)
-            return done()
+           done()
           })
         }
       ])

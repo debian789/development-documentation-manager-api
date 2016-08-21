@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+var debug = require('debug')('express-structure');
+var app = require('server/app')();
+var winston = require('winston');
+var UserModel = require('server/models/UserSchema');
+winston.remove(winston.transports.Console);
+winston.add(winston.transports.Console, {'timestamp':true});
+
+var userGetter = UserModel.authenticate();
+
+/* Configures Authentication */
+var passport = require('passport');
+var auth = require("server/config/auth");
+auth.init(passport, userGetter, {token_secret: "xxx"});
+
+/* Configure mails */
+var mails = require('server/config/mails');
+var smtpTransporterConfig = {
+    host: 'mail.mailoo.org',
+    port: 25,
+    auth: {
+        user: 'neozaru@mailoo.org',
+        pass: 'xxx'
+    }
+};
+
+mails.init(smtpTransporterConfig, {
+    static_context: {baseuri: "http://localhost/"}
+});
+
+app.set('port', process.env.PORT || 3000);
+debugger
+
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});

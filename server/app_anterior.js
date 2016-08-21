@@ -24,7 +24,8 @@ var appFunc = function(staticPath) {
   const port = process.env.PORT || 3000
 
   // Manejo de archivos estaticos
-  app.use(require('stylus').middleware(path.join(__dirname, 'public')))
+  staticPath = staticPath || path.join(__dirname, 'public')
+  app.use(require('stylus').middleware(staticPath))
   app.use(express.static('public'))
 
   // Middleware para el manejo de datos del formulario
@@ -52,7 +53,7 @@ var appFunc = function(staticPath) {
   // Configuracion de ruta de las vistas
   app.set('views', path.join(__dirname, 'views'))
   app.set('view engine', 'hjs')
-
+console.log('.......----...')
   app.use('/api', api)
   const server = http.createServer(app)
 
