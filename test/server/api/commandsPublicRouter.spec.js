@@ -29,7 +29,7 @@ describe('CommandPublicControllers', function () {
   var idUserTemp = ''
   var lastMail = {}
 
-  beforeEach(function (done) {
+  beforeEach(function (doneFirst) {
     mockgoose.reset()
 
     mails.init(new MailStub({
@@ -50,29 +50,26 @@ describe('CommandPublicControllers', function () {
         expect(res.body).to.have.property('username', 'neozaru')
         expect(res.body).to.have.property('email', 'neozaru@mailoo.org')
         idUserTemp = res.body._id
-        done()
+        doneFirst()
       })
   })
 
   describe('Functionalidades de CommandPublicControllers', function () {
 
-    it('Crear un comando y obtenerlo', function (done) {
-      debugger;
+    it('Crear un comando y obtenerlo', function (doneOne) {
       async.series([
         // query all return {}
         function (callback) {
-          debugger
           request(server)
           .get('/api/command-public/all')
           .expect('Content-Type', /json/)
           .expect(200)
           .expect({})
           .end(function (err, res) {
-            return err ? done(err) : callback()
+            return err ? doneOne(err) : callback()
           })
         }, function (callback) {
           // create commando
-          debugger
           request(server)
           .post('/api/command-private/command')
           .send({'title': 'hola mundo', 'description': 'is command', 'user': idUserTemp})
@@ -84,10 +81,9 @@ describe('CommandPublicControllers', function () {
             expect(res.body).to.have.property('is_edit', false)
             expect(res.body).to.have.property('is_public', false)
             expect(res.body).to.have.property('itemsCommand')
-            return err ? done(err) : callback()
+            return err ? doneOne(err) : callback()
           })
         }, function (callback) {
-          debugger
           // create command
           request(server)
           .post('/api/command-private/command')
@@ -103,11 +99,10 @@ describe('CommandPublicControllers', function () {
             expect(res.body).to.have.property('is_edit', true)
             expect(res.body).to.have.property('is_public', true)
             expect(res.body).to.have.property('itemsCommand')
-            return err ? done(err) : callback()
+            return err ? doneOne(err) : callback()
           })
         }, function (callback) {
           // create command
-          debugger
           request(server)
           .post('/api/command-private/command')
           .send({
@@ -131,10 +126,9 @@ describe('CommandPublicControllers', function () {
             expect(res.body).to.have.property('is_public', true)
             expect(res.body).to.have.property('itemsCommand')
             expect(res.body.itemsCommand).to.have.length(2)
-            return err ? done(err) : callback()
+            return err ? doneOne(err) : callback()
           })
         }, function (callback) {
-          debugger
           request(server)
           .get('/api/command-public/all')
           .expect('Content-Type', /json/)
@@ -146,14 +140,14 @@ describe('CommandPublicControllers', function () {
             expect(res.body[0]).to.have.property('is_edit', false)
             expect(res.body[1]).to.have.property('title', 'Hello world !')
             expect(res.body[1]).to.have.property('is_edit', true)
-           done()
+           doneOne()
           })
         }
       ])
     })
 
-    it('Should get command by id', function (done) {
-      done()
+    it('Should get command by id', function (doneOne) {
+      doneOne()
       // async.series([
       //   function (callback) {
       //       // Create command
@@ -164,7 +158,7 @@ describe('CommandPublicControllers', function () {
       //       .end(function (err, res) {
       //         expect(err).to.be.null
       //         expect(res.body).to.have.property('title')
-      //           return err ? done(err) : callback()
+      //           return err ? doneOne(err) : callback()
       //       })
       //   }, function (callback) {
       //       // get command
@@ -173,7 +167,7 @@ describe('CommandPublicControllers', function () {
       //       .expect(200)
       //       .end(function (err, res) {
       //         expect(err).to.be.null
-      //         done()
+      //         doneOne()
       //       })
       //   }
       // ])

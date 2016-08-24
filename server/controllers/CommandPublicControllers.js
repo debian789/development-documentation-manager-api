@@ -11,7 +11,7 @@ var CommandPublicControllers = {}
 
   // consultar all by user
   CommandPublicControllers.index = function (req, res) {
-    return Generic_rest.index(CommandsSchema, req, res)
+    return Generic_rest.index(CommandsSchema, req, res, ['title', 'description'])
   }
   // query  by id
 

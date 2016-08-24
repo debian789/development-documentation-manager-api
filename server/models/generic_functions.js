@@ -1,4 +1,5 @@
-var _ = require('underscore');
+var _ = require('underscore')
+var urlUtil = require('url')
 
 var generic = {};
 
@@ -24,25 +25,45 @@ generic.find = function(Model, cb) {
     })
 }
 
-generic.findWithParameter = function(Model, search,  cb) {
-    var perPage = 1;
-    var page= 1;
-     Model.find({},function(err, items) {
-      return cb(err, items);
+generic.findWithParameter = function(Model, req, fieldSearch, cb) {
+  var parameter = urlUtil.parse(req.url, true).query
+  // var page = Number(req.param('page') > 0 ? req.param('page') : 0)
+  var page = Number(parameter.page ? parameter.page : 0)
+  var limitPage = Number(parameter.limit ? parameter.limit : 10)
+  var textSearch = parameter.search ? parameter.search : ''
+  var arraySearch = []
+  var objSearch = {}
+  if (Array.isArray(fieldSearch)) {
+    fieldSearch.map(function (data) {
+      objSearch[data] = new RegExp(textSearch, 'i')
+      arraySearch.push(objSearch)
+      objSearch = {}
     })
+  }
 
-    // var search = search ? search : {};
-    // debugger;
-    // return Model.find({})
-    //   .limit(perPage)
-    //   .skip(perPage * page)
-    //   // .sort()
-    //   .exec(function(err, items) {
-    //     console.log('----------------------------------')
-    //     console.log(items)
-    //     console.log('----------------------------------')
-    //     return cb(err, items);
-    //   });
+  return Model.find({
+    '$or': arraySearch
+  })
+  .limit(limitPage)
+  .skip(limitPage * page)
+  .exec(function (err, items) {
+    if (err) {
+      cb(err)
+    }
+    Model.find({
+      '$or': arraySearch
+    })
+    .count()
+    .exec(function (err, count) {
+      return cb(err, {
+        data: items,
+        actualPage: page,
+        pages: Math.round(count / limitPage) === 0 ? 0 : Math.round(count / limitPage),
+        countData: count,
+        limitByPage: limitPage
+      })
+    })
+  })
 }
 
 generic.findById = function(Model, id, cb) {

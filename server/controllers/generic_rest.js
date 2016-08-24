@@ -5,8 +5,8 @@ var generic_functions = require("server/models/generic_functions");
 var generic = {};
 
 
-generic.index = function(Model, req, res) {
-    return generic_functions.findWithParameter(Model, req.body, function(err, items) {
+generic.index = function(Model, req, res, fieldSearch) {
+    return generic_functions.findWithParameter(Model, req, fieldSearch, function(err, items) {
         if (err) {
             winston.error(err);
             return res.sendStatus(500);
