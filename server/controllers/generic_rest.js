@@ -1,84 +1,76 @@
-var winston = require('winston');
-var _ = require('underscore');
-var generic_functions = require("server/models/generic_functions");
+var winston = require('winston')
+var _ = require('underscore')
+var generic_functions = require('server/models/generic_functions')
+var generic = {}
 
-var generic = {};
+generic.index = function (Model, req, res, fieldSearch) {
+  return generic_functions.findWithParameter(Model, req, fieldSearch, function (err, items) {
+    if (err) {
+      winston.error(err)
+      return res.sendStatus(500)
+    }
 
-
-generic.index = function(Model, req, res, fieldSearch) {
-    return generic_functions.findWithParameter(Model, req, fieldSearch, function(err, items) {
-        if (err) {
-            winston.error(err);
-            return res.sendStatus(500);
-        }
-
-        return res.send(items);
-
-    });
+    return res.send(items)
+  })
 }
+
 /*
 * field corresponde a los campos que se van a guadar en la DB
 */
-generic.create = function(Model, fields, required, req, res) {
-    generic_functions.saveNew(Model, req.body, fields, required, function(err, missing, item) {
-        if (!_.isEmpty(missing)) {
-            return res.status(400).send({"error": {"missing": missing}});
-        }
+generic.create = function (Model, fields, required, req, res) {
+  generic_functions.saveNew(Model, req.body, fields, required, function (err, missing, item) {
+    if (!_.isEmpty(missing)) {
+      return res.status(400).send({'error': {'missing': missing}})
+    }
 
-        if (err) {
-            winston.error(err);
-            return res.sendStatus(500);
-        }
+    if (err) {
+      winston.error(err)
+      return res.sendStatus(500)
+    }
 
-        return res.status(201).send(item);
-
-    });
+    return res.status(201).send(item)
+  })
 }
 
-generic.getById = function(Model, id, req, res) {
-    return generic_functions.findById(Model, id, function(err, item) {
-        if (err) {
-            winston.error(err);
-            return res.sendStatus(500);
-        }
+generic.getById = function (Model, id, req, res) {
+  return generic_functions.findById(Model, id, function (err, item) {
+    if (err) {
+      winston.error(err)
+      return res.sendStatus(500)
+    }
 
-        return item ? res.send(item) : res.sendStatus(404);
-
-    });
+    return item ? res.send(item) : res.sendStatus(404)
+  })
 }
 
-generic.delete = function(Model, id, req, res) {
-    return generic_functions.remove(Model, id, function(err, notfound) {
-        if (err) {
-            winston.error(err);
-            return res.sendStatus(500);
-        }
+generic.delete = function (Model, id, req, res) {
+  return generic_functions.remove(Model, id, function (err, notfound) {
+    if (err) {
+      winston.error(err)
+      return res.sendStatus(500)
+    }
 
-        if (notfound) {
-            return res.sendStatus(404);
-        }
+    if (notfound) {
+      return res.sendStatus(404)
+    }
 
-        return res.sendStatus(202)
-    });
-
+    return res.sendStatus(202)
+  })
 }
 
-generic.edit = function(Model, id, fields, req, res) {
-    return generic_functions.saveExisting(Model, id, req.body, fields, function(err, notfound, item) {
-        if (err) {
-            winston.error(err);
-            return res.sendStatus(500);
-        }
+generic.edit = function (Model, id, fields, req, res) {
+  return generic_functions.saveExisting(Model, id, req.body, fields, function (err, notfound, item) {
+    if (err) {
+      winston.error(err)
+      return res.sendStatus(500)
+    }
 
-        if (notfound) {
-            return res.sendStatus(404);
-        }
+    if (notfound) {
+      return res.sendStatus(404)
+    }
 
-        return res.send(item);
-
-    });
+    return res.send(item)
+  })
 }
 
-
-
-module.exports = generic;
+module.exports = generic

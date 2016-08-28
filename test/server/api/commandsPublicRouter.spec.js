@@ -197,7 +197,7 @@ describe('CommandPublicControllers', function () {
             .end(function (err, res) {
               expect(err).to.be.null
               expect(res.body).to.have.property('title')
-                return err ? doneOne(err) : callback()
+              return err ? doneOne(err) : callback()
             })
         }, function (callback) {
             // get command
@@ -219,6 +219,45 @@ describe('CommandPublicControllers', function () {
             })
         }
       ])
+    })
+
+    it('Should edit to command by id', function (doneOne) {
+      var idCommand = ''
+      async.series([ function (callback) {
+        request(server)
+          .post('/api/command-private/command')
+          .send({'title': 'hola', 'user': idUserTemp})
+          .expect(201)
+          .end(function (err, res) {
+            expect(err).to.be.null
+            expect(res.body).to.have.property('title')
+            // console.log(res.body)
+            idCommand = res.body._id
+            return err ? doneOne(err) : callback()
+          })
+      }, function (callback) {
+        request(server)
+          .put('/api/command-private/command/' + idCommand)
+          .send({'title': 'ls', 'itemsCommand': {'command': 'mkdir'}})
+          .expect(200)
+          .end(function (err, res) {
+            expect(err).to.be.null
+            expect(res.body).to.have.property('_id')
+            return err ? doneOne(err) : callback()
+          })
+      }, function (callback) {
+        request(server)
+          .get('/api/command-public/command/' + idCommand)
+          .expect(200)
+          .end(function (err, res) {
+            expect(err).to.be.null
+            expect(res.body).to.have.property('title', 'ls')
+            expect(res.body).to.have.property('itemsCommand')
+            expect(res.body.itemsCommand).to.have.instanceof(Array)
+            doneOne()
+          })
+
+      }])
     })
   })
 })

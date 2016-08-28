@@ -17,5 +17,6 @@ var CommandPrivateControllers = require('server/controllers/CommandPrivateContro
 
 // router.get('/all', CommandPrivateControllers.index)
 router.post('/command', CommandPrivateControllers.create)
+router.put('/command/:idCommand', CommandPrivateControllers.update)
 
 module.exports = router

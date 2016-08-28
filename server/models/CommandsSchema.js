@@ -1,6 +1,6 @@
 'use strict'
 var mongoose = require('mongoose')
-var ItemsComandSchema = require('server/models/ItemsCommandSchema')
+// var ItemsComandSchema = require('server/models/ItemsCommandSchema')
 let Schema = mongoose.Schema
 
 let CommandsSchema = new Schema({
