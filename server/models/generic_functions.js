@@ -18,12 +18,12 @@ generic.copyFields = function(source, target, fields, required) {
     });
 }
 
-/* DB methods */
-generic.find = function(Model, cb) {
-    return Model.find(function(err, items) {
-      return cb(err, items);
-    })
-}
+// /* DB methods */
+// generic.find = function(Model, cb) {
+//     return Model.find(function(err, items) {
+//       return cb(err, items);
+//     })
+// }
 
 generic.findWithParameter = function(Model, req, fieldSearch, cb) {
   var parameter = urlUtil.parse(req.url, true).query

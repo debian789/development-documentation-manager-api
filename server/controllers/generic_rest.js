@@ -35,7 +35,7 @@ generic.create = function(Model, fields, required, req, res) {
     });
 }
 
-generic.get = function(Model, id, req, res) {
+generic.getById = function(Model, id, req, res) {
     return generic_functions.findById(Model, id, function(err, item) {
         if (err) {
             winston.error(err);

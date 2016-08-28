@@ -14,6 +14,7 @@ var CommandPublicControllers = require('server/controllers/CommandPublicControll
 // api/command-public/detail/:idCommand    --- get the command by id command
 
 router.get('/all', CommandPublicControllers.index)
+router.get('/command/:idCommand', CommandPublicControllers.getById)
 // router.post('/', CommandPublicControllers.create)
 
 module.exports = router
