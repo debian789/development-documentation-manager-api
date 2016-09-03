@@ -34,7 +34,7 @@ auth.genToken = function (data) {
     new Error('Call "auth.init()" before using this function')
   }
 
-  return jwt.sign(data, auth.options.token_secret, {expiresInMinutes: auth.options.expiresInMinutes || 1440})
+  return jwt.sign(data, auth.options.token_secret, {expiresIn: auth.options.expiresIn || 1440})
 }
 
 module.exports = auth

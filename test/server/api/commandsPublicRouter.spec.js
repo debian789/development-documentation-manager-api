@@ -224,6 +224,7 @@ describe('CommandPublicControllers', function () {
     it('Should edit to command by id', function (doneOne) {
       var idCommand = ''
       async.series([ function (callback) {
+        // Create Command
         request(server)
           .post('/api/command-private/command')
           .send({'title': 'hola', 'user': idUserTemp})
@@ -231,11 +232,11 @@ describe('CommandPublicControllers', function () {
           .end(function (err, res) {
             expect(err).to.be.null
             expect(res.body).to.have.property('title')
-            // console.log(res.body)
             idCommand = res.body._id
             return err ? doneOne(err) : callback()
           })
       }, function (callback) {
+        // Edit Command
         request(server)
           .put('/api/command-private/command/' + idCommand)
           .send({'title': 'ls', 'itemsCommand': {'command': 'mkdir'}})
@@ -246,6 +247,7 @@ describe('CommandPublicControllers', function () {
             return err ? doneOne(err) : callback()
           })
       }, function (callback) {
+        // Query by id
         request(server)
           .get('/api/command-public/command/' + idCommand)
           .expect(200)
@@ -256,7 +258,6 @@ describe('CommandPublicControllers', function () {
             expect(res.body.itemsCommand).to.have.instanceof(Array)
             doneOne()
           })
-
       }])
     })
   })
