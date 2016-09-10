@@ -1,4 +1,5 @@
 'use strict'
+var futures = require('futures')
 var request = require('supertest')
 var expect = require('chai').expect
 var mongoose = require('mongoose')
@@ -37,57 +38,51 @@ describe('CommandPublicControllers', function () {
       statics: {baseuri: 'http://localhost/'}
     })
 
-  doneFirst()
-
-// async.series([
-//   function (callback) {
-// callback()
-//   },
-//   function (callback) {
-//     console.log('2-----------------------------')
-//     request(server)
-//       .post('/api/sessions')
-//       .send({email: 'neozaru@mailoo.org', password: 'mypassword'})
-//       .expect(200)
-//       // .expect('Content-Type', /json/)
-//       .expect(function(res) {
-//
-//         console.log('3-----------------------------')
-//         expect(res.body.token)
-//         var data = jwt.decode(res.body.token, 'xxx')
-//         expect(data).to.have.property('username', 'neozaru')
-//         expect(data).to.have.property('iat')
-//         expect(data).to.have.property('exp')
-//         /* 30-days token */
-//         expect(data.exp-data.iat).to.equal(43200)
-//       })
-//       .end(function(err, res) {
-//         doneFirst()
-//       })
-//       //.end(done)
-//   }
-// ])
-
+    doneFirst()
   })
-
-
 
   describe('Functionalidades de CommandPublicControllers', function () {
     it('crear usuario', function (doneFirst) {
       request(server)
         .post('/api/users')
-        .send({'username': 'neozaru', 'email': 'neozaru@mailoo.org', 'password': 'mypassword'})
+        .send({'username': 'neozaru1', 'email': 'neozaru1@mailoo.com', 'password': 'mypassword1'})
         .expect(200)
         .end(function (err, res) {
           expect(err).to.be.null
           expect(res.body).to.have.property('_id')
-          expect(res.body).to.have.property('username', 'neozaru')
-          expect(res.body).to.have.property('email', 'neozaru@mailoo.org')
+          expect(res.body).to.have.property('username', 'neozaru1')
+          expect(res.body).to.have.property('email', 'neozaru1@mailoo.com')
           idUserTemp = res.body._id
           // doneFirst()
           return doneFirst()
           // return err ? doneFirst(err) : callback()
         })
+    //  doneFirst()
+    })
+
+    it ('deberia iniciar sesion', function (done) {
+      futures.sequence().then(function(next) {
+        request(server)
+          .post('/api/sessions')
+          .send({
+            	email: "neozaru1@mailoo.com",
+            	password: "mypassword1"
+
+          })
+          .expect(200)
+          // .expect('Content-Type', /json/)
+          .expect(function(res) {
+            expect(res.body.token)
+            var data = jwt.decode(res.body.token, 'xxx')
+            expect(data).to.have.property('username', 'neozaru')
+            expect(data).to.have.property('iat')
+            expect(data).to.have.property('exp')
+            /* 30-days token */
+            expect(data.exp-data.iat).to.equal(43200)
+          })
+          .end(done)
+      })
+            //.end(done)
     })
 
     it('Crear un comando y obtenerlo', function (doneOne) {

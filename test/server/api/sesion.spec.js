@@ -54,7 +54,6 @@ describe('Authentication tests', function () {
           .expect(200)
           // .expect('Content-Type', /json/)
           .expect(function(res) {
-            console.log('-.-.-.-.-.-.-.-.-.-.-.')
             expect(res.body.token)
             var data = jwt.decode(res.body.token, 'xxx')
             expect(data).to.have.property('username', 'neozaru')
