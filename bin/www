@@ -15,14 +15,15 @@ auth.init(passport, userGetter, {token_secret: "xxx"});
 
 /* Configure mails */
 var mails = require('server/config/mails');
-var smtpTransporterConfig = {
-    host: 'mail.mailoo.org',
-    port: 25,
-    auth: {
-        user: 'neozaru@mailoo.org',
-        pass: 'xxx'
-    }
+var smtpTransporterConfig =  {
+  host: "mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "ef0b7164ac711c",
+    pass: "e8b9b3a44fb388"
+  }
 };
+
 
 mails.init(smtpTransporterConfig, {
     static_context: {baseuri: "http://localhost/"}

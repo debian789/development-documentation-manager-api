@@ -1,6 +1,5 @@
 var nodemailer = require('nodemailer');
 
-
 var mails = {};
 
 mails.init = function(transportConfig, options) {

@@ -4,6 +4,14 @@ var router = express.Router()
 var CommandsSchema = require('server/models/CommandsSchema')
 var CommandPrivateControllers = require('server/controllers/CommandPrivateControllers')(CommandsSchema)
 
+function validarAutenticacion (req, res, next) {
+  if (req.isAuthenticated()) {
+    next()
+  } else {
+    res.sendStatus(500)
+  }
+}
+
 // public information
 // post
 // api/command-private/    -- get all by state is_private true
@@ -16,7 +24,7 @@ var CommandPrivateControllers = require('server/controllers/CommandPrivateContro
 // api/command-private/detail/:idCommand    --- get the command by id command
 
 // router.get('/all', CommandPrivateControllers.index)
-router.post('/command', CommandPrivateControllers.create)
+router.post('/command', validarAutenticacion, CommandPrivateControllers.create)
 router.put('/command/:idCommand', CommandPrivateControllers.update)
 
 module.exports = router

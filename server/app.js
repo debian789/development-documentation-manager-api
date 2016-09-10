@@ -1,16 +1,15 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var compression = require('compression');
+var express = require('express')
+var path = require('path')
+var favicon = require('serve-favicon')
+var logger = require('morgan')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var compression = require('compression')
+var routes = require('server/routers/index')
+var api = require('server/routers/api')
+var passport = require('passport')
 
-var routes = require('server/routers/index');
-var api = require('server/routers/api');
-var passport = require('passport');
-
-var auth = require("server/config/auth");
+var auth = require("server/config/auth")
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/mydb');

@@ -1,5 +1,5 @@
 var generic_rest = require('server/controllers/generic_rest');
-var mail_utils = require('server/common/mail_utils');
+var mail_utils = require('server/common/mail_utils')
 var httplike_errors = require('server/common/httplike_errors');
 /* Let caller define which model use (better architecture, esier testing) */
 var usersInj = function(UserModel) {
@@ -35,7 +35,6 @@ var usersInj = function(UserModel) {
 
                     return res.send(new_user);
                 });
-
             });
         });
     }

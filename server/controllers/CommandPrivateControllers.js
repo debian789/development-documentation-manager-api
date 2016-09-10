@@ -2,6 +2,8 @@
 var CommandsSchema = require('server/models/CommandsSchema')
 var Generic_rest = require('server/controllers/Generic_rest')
 
+
+
 var CommandsInit = function (CommandModel) {
   var CommandPrivateControllers = {}
 
