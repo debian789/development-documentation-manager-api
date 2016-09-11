@@ -6,7 +6,13 @@ var auth = require('server/config/auth')
 /* Authenticates with password, returns a new token and user */
 router.post('/',
   passport.authenticate('local', {session: false}), function (req, res) {
-    res.send({token: auth.genToken(req.user), email: req.user.email, user: req.user})
+    var dataUser = {
+      email: req.user.email,
+      username: req.user.username,
+      _id: req.user._id
+    }
+
+    res.send({token: auth.genToken(dataUser), user: req.user})
   }
 )
 
