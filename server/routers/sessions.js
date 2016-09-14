@@ -12,14 +12,19 @@ router.post('/',
       _id: req.user._id
     }
 
-    res.send({token: auth.genToken(dataUser), user: req.user})
+    res.send({token: auth.genToken(dataUser), user: dataUser})
   }
 )
 
 /* Authenticates with current token, returns a new token and user */
 router.put('/',
   passport.authenticate('bearer', {session: false}), function (req, res) {
-    res.send({token: auth.genToken(req.user), user: req.user})
+    var dataUser = {
+      email: req.user.email,
+      username: req.user.username,
+      _id: req.user._id
+    }
+    res.send({token: auth.genToken(dataUser), user: dataUser})
   }
 )
 

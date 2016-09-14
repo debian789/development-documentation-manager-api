@@ -1,15 +1,22 @@
 var express = require('express')
 var router = express.Router()
+var passport = require('passport')
 
 var CommandsSchema = require('server/models/CommandsSchema')
 var CommandPrivateControllers = require('server/controllers/CommandPrivateControllers')(CommandsSchema)
 
-function validarAutenticacion (req, res, next) {
-  if (req.isAuthenticated()) {
-    next()
-  } else {
-    res.sendStatus(500)
-  }
+// function validarAutenticacion (req, res, next) {
+//   req.isAuthenticated()
+//   if (req.isAuthenticated()) {
+//     next()
+//   } else {
+//     res.sendStatus(500)
+//   }
+// }
+
+function completeUser (req, res, next) {
+  req.body.user = req.user._id
+  next()
 }
 
 // public information
@@ -24,7 +31,7 @@ function validarAutenticacion (req, res, next) {
 // api/command-private/detail/:idCommand    --- get the command by id command
 
 // router.get('/all', CommandPrivateControllers.index)
-router.post('/command', validarAutenticacion, CommandPrivateControllers.create)
+router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.create)
 router.put('/command/:idCommand', CommandPrivateControllers.update)
 
 module.exports = router
