@@ -4,6 +4,7 @@ var request = require('supertest')
 var expect = require('chai').expect
 var mongoose = require('mongoose')
 var async = require('async')
+var jwt = require('jsonwebtoken')
 var mockgoose = require('mockgoose')
 mockgoose(mongoose)
 
@@ -45,7 +46,11 @@ describe('CommandPublicControllers', function () {
     it('crear usuario', function (doneFirst) {
       request(server)
         .post('/api/users')
-        .send({'username': 'debian789', 'email': 'debian789@gmail.com', 'password': '123456789'})
+        .send({
+          'username': 'debian789',
+          'email': 'debian789@gmail.com',
+          'password': '123456789'
+        })
         .expect(200)
         .end(function (err, res) {
           expect(err).to.be.null
@@ -53,38 +58,29 @@ describe('CommandPublicControllers', function () {
           expect(res.body).to.have.property('username', 'debian789')
           expect(res.body).to.have.property('email', 'debian789@gmail.com')
           idUserTemp = res.body._id
-          // doneFirst()
-          return doneFirst()
-          // return err ? doneFirst(err) : callback()
+          //futures.sequence().then(function() {
+           request(server)
+             .get('/api/sessions')
+             .send({
+                 'email': res.body.email,
+                 'password': '123456789'
+
+             })
+             .expect(200)
+             // .expect('Content-Type', /json/)
+             .end(function(err, res2) {
+               expect(res2.body.token)
+               var data = jwt.decode(res2.body.token, 'xxx')
+               expect(data).to.have.property('username', 'debian789')
+               expect(data).to.have.property('iat')
+               expect(data).to.have.property('exp')
+               /* 30-days token */
+               expect(data.exp-data.iat).to.equal(43200)
+               return doneFirst()
+             })
+         //})
+
         })
-    //  doneFirst()
-    })
-
-    it ('deberia iniciar sesion', function (done) {
-      // futures.sequence().then(function(next) {
-        request(server)
-          .get('/api/sessions')
-          .send({
-            	"email": "debian789@gmail.com",
-            	"password": "123456789"
-
-          })
-          .expect(200)
-          // .expect('Content-Type', /json/)
-          .expect(function(res) {
-            expect(res.body.token)
-            var data = jwt.decode(res.body.token, 'xxx')
-            expect(data).to.have.property('username', 'debian789')
-            expect(data).to.have.property('iat')
-            expect(data).to.have.property('exp')
-            /* 30-days token */
-            expect(data.exp-data.iat).to.equal(43200)
-          })
-          .end(function (err, data) {
-            done()
-          })
-      //})
-            //.end(done)
     })
 
     it('Crear un comando y obtenerlo', function (doneOne) {
