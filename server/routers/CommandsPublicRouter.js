@@ -15,9 +15,29 @@ var CommandPublicControllers = require('server/controllers/CommandPublicControll
 
 
 /**
+*@swagger
+*definition:
+*  Command:
+*    properties:
+*      data:
+*        type: string
+*      actualPage:
+*        type: integer
+*      pages:
+*        type: integer
+*      countData:
+*        type: integer
+*      limitByPage:
+*        type: integer
+*/
+
+/**
  * @swagger
  * /api/command-public/all:
  *   get:
+ *     properties:
+*       name:
+*       type: string
  *     tags:
  *       - command
  *     description: Retorna los comandos publicos
@@ -28,13 +48,21 @@ var CommandPublicControllers = require('server/controllers/CommandPublicControll
  *         description: permite buscar commandos
  *         in: query
  *         type: string
- *       - name: page_size
+ *       - name: limit
  *         description: cantidad de item a mostrar
  *         in: query
  *         type: number
+ *       - name: page
+ *         description: permite navegar en la pagina de busqueda
+ *         in: query
+ *         type: Number
  *     responses:
  *       200:
  *         description: Consulto los command
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/Command'
  */
 router.get('/all', CommandPublicControllers.index)
 
