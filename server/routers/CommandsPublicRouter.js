@@ -13,7 +13,32 @@ var CommandPublicControllers = require('server/controllers/CommandPublicControll
 // api/command-public/user/:idUser     --- get all by id the user created
 // api/command-public/detail/:idCommand    --- get the command by id command
 
+
+/**
+ * @swagger
+ * /api/command-public/all:
+ *   get:
+ *     tags:
+ *       - command
+ *     description: Retorna los comandos publicos
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: search
+ *         description: permite buscar commandos
+ *         in: query
+ *         type: string
+ *       - name: page_size
+ *         description: cantidad de item a mostrar
+ *         in: query
+ *         type: number
+ *     responses:
+ *       200:
+ *         description: Consulto los command
+ */
 router.get('/all', CommandPublicControllers.index)
+
+
 router.get('/command/:idCommand', CommandPublicControllers.getById)
 // router.post('/', CommandPublicControllers.create)
 

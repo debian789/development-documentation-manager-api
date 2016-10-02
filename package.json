@@ -55,6 +55,7 @@
     "serve-favicon": "^2.3.0",
     "stylus": "^0.54.5",
     "superagent": "^2.0.0",
+    "swagger-jsdoc": "^1.7.0",
     "to-markdown": "^3.0.0",
     "underscore": "^1.8.3",
     "validator": "^5.4.0",
