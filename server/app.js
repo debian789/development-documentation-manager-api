@@ -32,7 +32,7 @@ var options = {
   // import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
-  apis: ['server/routers/CommandsPublicRouter.js']
+  apis: ['server/routers/*']
 }
 
 // initialize swagger-jsdoc
