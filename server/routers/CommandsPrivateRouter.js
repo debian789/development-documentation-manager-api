@@ -95,7 +95,7 @@ function completeUser (req, res, next) {
  */
 router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.create)
 
-router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.index)
+router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.all)
 
 
 

@@ -1,10 +1,10 @@
 var winston = require('winston')
 var _ = require('underscore')
-var generic_functions = require('server/models/generic_functions')
-var generic = {}
+var utils_query = require('server/models/utils_query')
+var util_rest = {}
 
-generic.index = function (Model, req, res, fieldSearch) {
-  return generic_functions.findWithParameter(Model, req, fieldSearch, function (err, items) {
+util_rest.all = function (Model, req, res, fieldSearch) {
+  return utils_query.findWithParameter(Model, req, fieldSearch, function (err, items) {
     if (err) {
       winston.error(err)
       return res.sendStatus(500)
@@ -17,8 +17,8 @@ generic.index = function (Model, req, res, fieldSearch) {
 /*
 * field corresponde a los campos que se van a guadar en la DB
 */
-generic.create = function (Model, fields, required, req, res) {
-  generic_functions.saveNew(Model, req.body, fields, required, function (err, missing, item) {
+util_rest.create = function (Model, fields, required, req, res) {
+  utils_query.saveNew(Model, req.body, fields, required, function (err, missing, item) {
     if (!_.isEmpty(missing)) {
       return res.status(400).send({'error': {'missing': missing}})
     }
@@ -32,8 +32,8 @@ generic.create = function (Model, fields, required, req, res) {
   })
 }
 
-generic.getById = function (Model, id, req, res) {
-  return generic_functions.findById(Model, id, function (err, item) {
+util_rest.getById = function (Model, id, req, res) {
+  return utils_query.findById(Model, id, function (err, item) {
     if (err) {
       winston.error(err)
       return res.sendStatus(500)
@@ -43,8 +43,8 @@ generic.getById = function (Model, id, req, res) {
   })
 }
 
-generic.delete = function (Model, id, req, res) {
-  return generic_functions.remove(Model, id, function (err, notfound) {
+util_rest.delete = function (Model, id, req, res) {
+  return utils_query.remove(Model, id, function (err, notfound) {
     if (err) {
       winston.error(err)
       return res.sendStatus(500)
@@ -58,8 +58,8 @@ generic.delete = function (Model, id, req, res) {
   })
 }
 
-generic.edit = function (Model, id, fields, req, res) {
-  return generic_functions.saveExisting(Model, id, req.body, fields, function (err, notfound, item) {
+util_rest.edit = function (Model, id, fields, req, res) {
+  return utils_query.saveExisting(Model, id, req.body, fields, function (err, notfound, item) {
     if (err) {
       winston.error(err)
       return res.sendStatus(500)
@@ -73,4 +73,4 @@ generic.edit = function (Model, id, fields, req, res) {
   })
 }
 
-module.exports = generic
+module.exports = util_rest

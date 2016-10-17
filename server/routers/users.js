@@ -15,7 +15,7 @@ router.put('/:userid', passport.authenticate('bearer'), users.edit);
 router.delete('/:userid', passport.authenticate('bearer'), users.delete);
 
 /* Debugging */
-router.get('/', users.index);
+router.get('/', users.all);
 router.get('/:userid', users.get);
 /**/
 

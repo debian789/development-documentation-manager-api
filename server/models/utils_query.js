@@ -1,9 +1,9 @@
 var _ = require('underscore')
 var urlUtil = require('url')
 
-var generic = {};
+var utils_query = {};
 
-generic.copyFields = function(source, target, fields, required) {
+utils_query.copyFields = function(source, target, fields, required) {
     if (_.isEmpty(fields)) {
         return [];
     }
@@ -19,13 +19,13 @@ generic.copyFields = function(source, target, fields, required) {
 }
 
 // /* DB methods */
-// generic.find = function(Model, cb) {
+// utils_query.find = function(Model, cb) {
 //     return Model.find(function(err, items) {
 //       return cb(err, items);
 //     })
 // }
 
-generic.findWithParameter = function(Model, req, fieldSearch, cb) {
+utils_query.findWithParameter = function(Model, req, fieldSearch, cb) {
   var parameter = urlUtil.parse(req.url, true).query
   // var page = Number(req.param('page') > 0 ? req.param('page') : 0)
   var page = Number(parameter.page ? parameter.page : 0)
@@ -66,15 +66,15 @@ generic.findWithParameter = function(Model, req, fieldSearch, cb) {
   })
 }
 
-generic.findById = function(Model, id, cb) {
+utils_query.findById = function(Model, id, cb) {
     return Model.findById(id, function(err, item) {
         return cb(err, item);
     });
 }
 
-generic.saveNew = function(Model, obj, fields, required, cb) {
+utils_query.saveNew = function(Model, obj, fields, required, cb) {
     var item = new Model();
-    var missing = generic.copyFields(obj, item, fields, required);
+    var missing = utils_query.copyFields(obj, item, fields, required);
     if (!_.isEmpty(missing)) {
         return cb(null, missing, null);
     }
@@ -85,8 +85,8 @@ generic.saveNew = function(Model, obj, fields, required, cb) {
     });
 }
 
-generic.remove = function(Model, id, cb) {
-    return generic.findById(Model, id, function(err, item) {
+utils_query.remove = function(Model, id, cb) {
+    return utils_query.findById(Model, id, function(err, item) {
 
         if (err) {
             return cb(err);
@@ -103,8 +103,8 @@ generic.remove = function(Model, id, cb) {
     });
 }
 
-generic.saveExisting = function(Model, id, obj, fields, cb) {
-    return generic.findById(Model, id, function(err, item) {
+utils_query.saveExisting = function(Model, id, obj, fields, cb) {
+    return utils_query.findById(Model, id, function(err, item) {
         if (err) {
             return cb(err)
         }
@@ -113,7 +113,7 @@ generic.saveExisting = function(Model, id, obj, fields, cb) {
             return cb(null, true);
         }
 
-        generic.copyFields(obj, item, fields, []);
+        utils_query.copyFields(obj, item, fields, []);
 
         return item.save(function(err) {
             return cb(err, false, item);
@@ -122,4 +122,4 @@ generic.saveExisting = function(Model, id, obj, fields, cb) {
     });
 }
 
-module.exports = generic;
+module.exports = utils_query;

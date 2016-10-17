@@ -92,7 +92,7 @@ var CommandPublicControllers = require('server/controllers/CommandPublicControll
  *           items:
  *             $ref: '#/definitions/Command'
  */
-router.get('/all', CommandPublicControllers.index)
+router.get('/all', CommandPublicControllers.all)
 
 /**
  * @swagger

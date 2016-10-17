@@ -1,6 +1,6 @@
 // var ItemsCommandSchema = require('server/models/ItemsCommandSchema')
 var CommandsSchema = require('server/models/CommandsSchema')
-var Generic_rest = require('server/controllers/generic_rest')
+var util_rest = require('server/controllers/util_rest')
 
 
 
@@ -8,13 +8,13 @@ var CommandsInit = function (CommandModel) {
   var CommandPublicControllers = {}
 
   // consultar all by user
-  CommandPublicControllers.index = function (req, res) {
-    return Generic_rest.index(CommandsSchema, req, res, ['title', 'description'])
+  CommandPublicControllers.all = function (req, res) {
+    return util_rest.all(CommandsSchema, req, res, ['title', 'description'])
   }
 
   // query  by id
   CommandPublicControllers.getById = function (req, res) {
-    return Generic_rest.getById(CommandsSchema, req.params.idCommand, req, res)
+    return util_rest.getById(CommandsSchema, req.params.idCommand, req, res)
   }
 
 

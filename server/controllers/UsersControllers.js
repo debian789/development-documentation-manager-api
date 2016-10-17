@@ -1,11 +1,11 @@
-var generic_rest = require('server/controllers/generic_rest')
+var util_rest = require('server/controllers/util_rest')
 var mail_utils = require('server/common/mail_utils')
 var httplike_errors = require('server/common/httplike_errors')
 /* Let caller define which model use (better architecture, esier testing) */
 var usersInj = function (UserModel) {
   var users = {}
-  users.index = function (req, res) {
-    return generic_rest.index(UserModel, req, res)
+  users.all = function (req, res) {
+    return util_rest.all(UserModel, req, res)
   }
 
   users.create = function (req, res) {
@@ -56,21 +56,21 @@ var usersInj = function (UserModel) {
   }
 
   users.get = function (req, res) {
-    return generic_rest.get(UserModel, req.params.userid, req, res)
+    return util_rest.get(UserModel, req.params.userid, req, res)
   }
 
   users.delete = function (req, res) {
     if (req.user._id != req.params.userid) {
       return res.sendStatus(401)
     }
-    return generic_rest.delete(UserModel, req.params.userid, req, res)
+    return util_rest.delete(UserModel, req.params.userid, req, res)
   }
 
   users.edit = function (req, res) {
     if (req.user._id != req.params.userid) {
         return res.sendStatus(401)
     }
-    return generic_rest.edit(UserModel, req.params.userid, ['username', 'email'], req, res)
+    return util_rest.edit(UserModel, req.params.userid, ['username', 'email'], req, res)
   }
 
   return users
