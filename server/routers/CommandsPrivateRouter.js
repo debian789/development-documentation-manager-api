@@ -95,6 +95,30 @@ function completeUser (req, res, next) {
  */
 router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.create)
 
+
+/**
+ * @swagger
+ * /api/command-private/command:
+ *   get:
+ *     properties:
+ *       name:
+ *       type: string
+ *     tags:
+ *       - Command private
+ *     description: Consulta de comandos
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: token de autenticacion
+ *         in: header
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Lista los comandos creados
+ *         schema:
+ *             $ref: '#/definitions/Command'
+ */
 router.get('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.all)
 
 
