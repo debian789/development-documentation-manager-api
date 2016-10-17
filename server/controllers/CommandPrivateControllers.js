@@ -11,11 +11,6 @@ var CommandsInit = function (CommandModel) {
   CommandPrivateControllers.all = function (req, res) {
     return util_rest.all(CommandsSchema, req, res, ['title', 'description'])
   }
-  // query  by id
-
-  // query by state is_public true
-  // buscar
-  // eliminar
 
   // crear
   CommandPrivateControllers.create = function (req, res) {
@@ -29,6 +24,13 @@ var CommandsInit = function (CommandModel) {
     return util_rest.edit(CommandsSchema, req.params.idCommand,
         ['title', 'description', 'is_edit', 'is_public', 'itemsCommand'], req, res)
   }
+
+  // delete
+  CommandPrivateControllers.delete = function (req, res) {
+    return util_rest.delete(CommandsSchema, req.params.idCommand,req, res)
+  }
+
+// consultar por id
 
   return CommandPrivateControllers
 }

@@ -158,4 +158,31 @@ router.get('/command', passport.authenticate('bearer', {session: false}), comple
  */
 router.put('/command/:idCommand', CommandPrivateControllers.update)
 
+/**
+ * @swagger
+ * /api/command-private/command/{idCommand}:
+ *   delete:
+ *     properties:
+ *       name:
+ *       type: string
+ *     tags:
+ *       - Command private
+ *     description: eliminar un comando
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: token de autenticacion
+ *         in: header
+ *         type: string
+ *       - name: idCommand
+ *         description: id del comando a eliminar
+ *         in: path
+ *         type: string
+ *     responses:
+ *       202:
+ *         description: Retorna que se elimino el comando
+ */
+router.delete('/command/:idCommand', CommandPrivateControllers.delete)
+
 module.exports = router
