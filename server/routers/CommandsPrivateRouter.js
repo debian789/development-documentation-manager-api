@@ -31,7 +31,74 @@ function completeUser (req, res, next) {
 // api/command-private/detail/:idCommand    --- get the command by id command
 
 // router.get('/all', CommandPrivateControllers.index)
+
+
+/**
+*@swagger
+*definition:
+*  ItemCommandWithoutId:
+*    properties:
+*      command:
+*        type: string
+*      description:
+*        type: string
+*/
+
+/**
+*@swagger
+*definition:
+*  CommandCreateObject:
+*    properties:
+*      title:
+*        type: string
+*      itemsCommand:
+*        type: array
+*        items:
+*             $ref: '#/definitions/ItemCommandWithoutId'
+*      is_public:
+*        type: boolean
+*      is_edit:
+*        type: boolean
+*/
+
+
+
+
+/**
+ * @swagger
+ * /api/command-private/command:
+ *   post:
+ *     properties:
+ *       name:
+ *       type: string
+ *     tags:
+ *       - Command private
+ *     description: Crea un commando
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: token de autenticacion
+ *         in: header
+ *         type: string
+ *       - name: data
+ *         description: Objeto para crear un comando
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/CommandCreateObject'
+ *     responses:
+ *       200:
+ *         description: Respuesta al crear el comando
+ *         schema:
+ *             $ref: '#/definitions/CommandDetail'
+ */
 router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.create)
+
+router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.index)
+
+
+
 router.put('/command/:idCommand', CommandPrivateControllers.update)
 
 module.exports = router
