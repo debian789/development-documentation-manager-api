@@ -9,7 +9,7 @@ var CommandsInit = function (CommandModel) {
 
   // consultar all by user
   CommandPrivateControllers.all = function (req, res) {
-    return util_rest.all(CommandsSchema, req, res)
+    return util_rest.all(CommandsSchema, req, res, ['title', 'description'])
   }
   // query  by id
 

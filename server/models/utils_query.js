@@ -5,17 +5,17 @@ var utils_query = {};
 
 utils_query.copyFields = function(source, target, fields, required) {
     if (_.isEmpty(fields)) {
-        return [];
+        return []
     }
 
     return _.filter(fields, function(field) {
         if (!_.isUndefined(source[field])) {
-            target[field] = source[field];
+            target[field] = source[field]
         }
         else if (_.contains(required,field)) {
-            return field;
+          return field
         }
-    });
+    })
 }
 
 // /* DB methods */
@@ -33,6 +33,7 @@ utils_query.findWithParameter = function(Model, req, fieldSearch, cb) {
   var textSearch = parameter.search ? parameter.search : ''
   var arraySearch = []
   var objSearch = {}
+  
   if (Array.isArray(fieldSearch)) {
     fieldSearch.map(function (data) {
       objSearch[data] = new RegExp(textSearch, 'i')
@@ -41,9 +42,17 @@ utils_query.findWithParameter = function(Model, req, fieldSearch, cb) {
     })
   }
 
-  return Model.find({
+  var objectSearch = {
     '$or': arraySearch
-  })
+  }
+
+  if (req.body.user) {
+    objectSearch['user'] = req.body.user
+  } else {
+    objectSearch['is_public'] = true
+  }
+
+  return Model.find(objectSearch)
   .limit(limitPage)
   .skip(limitPage * page)
   .exec(function (err, items) {
