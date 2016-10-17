@@ -123,6 +123,39 @@ router.get('/command', passport.authenticate('bearer', {session: false}), comple
 
 
 
+/**
+ * @swagger
+ * /api/command-private/command/{idCommand}:
+ *   put:
+ *     properties:
+ *       name:
+ *       type: string
+ *     tags:
+ *       - Command private
+ *     description: Consulta de comandos
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: token de autenticacion
+ *         in: header
+ *         type: string
+ *       - name: idCommand
+ *         description: id del comando a editar
+ *         in: path
+ *         type: string
+ *       - name: data
+ *         description: Objeto editar command
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/CommandCreateObject'
+ *     responses:
+ *       200:
+ *         description: Retorna el comando editado
+ *         schema:
+ *             $ref: '#/definitions/CommandDetail'
+ */
 router.put('/command/:idCommand', CommandPrivateControllers.update)
 
 module.exports = router
