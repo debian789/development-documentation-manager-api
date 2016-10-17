@@ -156,7 +156,7 @@ router.get('/command', passport.authenticate('bearer', {session: false}), comple
  *         schema:
  *             $ref: '#/definitions/CommandDetail'
  */
-router.put('/command/:idCommand', CommandPrivateControllers.update)
+router.put('/command/:idCommand',  passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.update)
 
 /**
  * @swagger
@@ -183,6 +183,6 @@ router.put('/command/:idCommand', CommandPrivateControllers.update)
  *       202:
  *         description: Retorna que se elimino el comando
  */
-router.delete('/command/:idCommand', CommandPrivateControllers.delete)
+router.delete('/command/:idCommand', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.delete)
 
 module.exports = router

@@ -33,7 +33,7 @@ utils_query.findWithParameter = function(Model, req, fieldSearch, cb) {
   var textSearch = parameter.search ? parameter.search : ''
   var arraySearch = []
   var objSearch = {}
-  
+
   if (Array.isArray(fieldSearch)) {
     fieldSearch.map(function (data) {
       objSearch[data] = new RegExp(textSearch, 'i')
@@ -94,20 +94,30 @@ utils_query.saveNew = function(Model, obj, fields, required, cb) {
     });
 }
 
-utils_query.remove = function(Model, id, cb) {
-    return utils_query.findById(Model, id, function(err, item) {
+utils_query.remove = function(Model, id, req, cb) {
+    // return utils_query.findById(Model, id, function(err, item) {
+    var objectFilter = {
+      '_id': id,
+      'user': req.body.user
+    }
+
+    return Model.find(objectFilter, function(err, item) {
 
         if (err) {
-            return cb(err);
+            return cb(err)
         }
 
         if (!item) {
-            return cb(null, true);
+            return cb(null, true)
         }
 
-        return item.remove(function(err) {
-            return cb(err);
-        });
+        if (item.length > 0) {
+          return item[0].remove({'_id': item._id}, function (err) {
+            return cb(err)
+          })
+        } else {
+          return cb(null, true)
+        }
 
     });
 }

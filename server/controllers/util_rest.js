@@ -44,7 +44,7 @@ util_rest.getById = function (Model, id, req, res) {
 }
 
 util_rest.delete = function (Model, id, req, res) {
-  return utils_query.remove(Model, id, function (err, notfound) {
+  return utils_query.remove(Model, id, req, function (err, notfound) {
     if (err) {
       winston.error(err)
       return res.sendStatus(500)
