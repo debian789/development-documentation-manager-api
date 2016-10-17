@@ -33,7 +33,7 @@ util_rest.create = function (Model, fields, required, req, res) {
 }
 
 util_rest.getById = function (Model, id, req, res) {
-  return utils_query.findById(Model, id, function (err, item) {
+  return utils_query.findById(Model, id, req, function (err, item) {
     if (err) {
       winston.error(err)
       return res.sendStatus(500)

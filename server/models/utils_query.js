@@ -75,10 +75,23 @@ utils_query.findWithParameter = function(Model, req, fieldSearch, cb) {
   })
 }
 
-utils_query.findById = function(Model, id, cb) {
-    return Model.findById(id, function(err, item) {
-        return cb(err, item);
-    });
+utils_query.findById = function(Model, id, req, cb) {
+
+  var objectFiter = {
+    '_id': id
+  }
+
+  if (req.body['user']) {
+    objectFiter['user'] = req.body.user
+  }
+
+  return Model.find(objectFiter, function (err, item) {
+    if (item.length > 0) {
+      return cb(err, item[0])
+    } else {
+      return cb(null, true)
+    }
+  })
 }
 
 utils_query.saveNew = function(Model, obj, fields, required, cb) {
