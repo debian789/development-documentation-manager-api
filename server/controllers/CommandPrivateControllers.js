@@ -30,7 +30,11 @@ var CommandsInit = function (CommandModel) {
     return util_rest.delete(CommandsSchema, req.params.idCommand,req, res)
   }
 
-// consultar por id
+  // consultar por id
+  CommandPrivateControllers.detail = function (req, res) {
+    return util_rest.getById(CommandsSchema, req.params.idCommand,req, res)
+  }
+
 
   return CommandPrivateControllers
 }

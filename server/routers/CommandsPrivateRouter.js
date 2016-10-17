@@ -185,4 +185,35 @@ router.put('/command/:idCommand',  passport.authenticate('bearer', {session: fal
  */
 router.delete('/command/:idCommand', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.delete)
 
+
+
+/**
+ * @swagger
+ * /api/command-private/command/{idCommand}:
+ *   get:
+ *     properties:
+ *       name:
+ *       type: string
+ *     tags:
+ *       - Command private
+ *     description: Consultar un comando
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: token de autenticacion
+ *         in: header
+ *         type: string
+ *       - name: idCommand
+ *         description: id del comando a consultar
+ *         in: path
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Retorna el comando consultado
+ *         schema:
+ *             $ref: '#/definitions/CommandDetail'
+ */
+router.get('/command/:idCommand', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.detail)
+
 module.exports = router
