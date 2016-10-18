@@ -3,7 +3,6 @@ var router = express.Router()
 var passport = require('passport')
 var auth = require('server/config/auth')
 
-
 /**
  * @swagger
  * definition:
@@ -34,7 +33,6 @@ var auth = require('server/config/auth')
   *         type: integer
   */
 
-
 /**
  * @swagger
  * definition:
@@ -58,7 +56,6 @@ var auth = require('server/config/auth')
   *         $ref: '#/definitions/User'
   */
 
-
   /**
    * @swagger
    * definition:
@@ -68,7 +65,6 @@ var auth = require('server/config/auth')
    *         type: object
    *         $ref: '#/definitions/UserGet'
    */
-
 
 /* Authenticates with password, returns a new token and user */
 /**

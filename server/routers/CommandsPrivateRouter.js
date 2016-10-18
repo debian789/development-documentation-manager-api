@@ -5,33 +5,10 @@ var passport = require('passport')
 var CommandsSchema = require('server/models/CommandsSchema')
 var CommandPrivateControllers = require('server/controllers/CommandPrivateControllers')(CommandsSchema)
 
-// function validarAutenticacion (req, res, next) {
-//   req.isAuthenticated()
-//   if (req.isAuthenticated()) {
-//     next()
-//   } else {
-//     res.sendStatus(500)
-//   }
-// }
-
 function completeUser (req, res, next) {
   req.body.user = req.user._id
   next()
 }
-
-// public information
-// post
-// api/command-private/    -- get all by state is_private true
-
-// get
-// api/command-private/command/?search=textSearch    -- get all by state is_private true
-// api/command-private/command/?page_size=textSearch    -- get data for page size
-// api/command-private/command/?search=textSearch&page_size=textSearch    -- filter info for page
-// api/command-private/user/:idUser     --- get all by id the user created
-// api/command-private/detail/:idCommand    --- get the command by id command
-
-// router.get('/all', CommandPrivateControllers.index)
-
 
 /**
 *@swagger
@@ -60,9 +37,6 @@ function completeUser (req, res, next) {
 *      is_edit:
 *        type: boolean
 */
-
-
-
 
 /**
  * @swagger
@@ -95,7 +69,6 @@ function completeUser (req, res, next) {
  */
 router.post('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.create)
 
-
 /**
  * @swagger
  * /api/command-private/command:
@@ -120,8 +93,6 @@ router.post('/command', passport.authenticate('bearer', {session: false}), compl
  *             $ref: '#/definitions/Command'
  */
 router.get('/command', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.all)
-
-
 
 /**
  * @swagger
@@ -156,7 +127,7 @@ router.get('/command', passport.authenticate('bearer', {session: false}), comple
  *         schema:
  *             $ref: '#/definitions/CommandDetail'
  */
-router.put('/command/:idCommand',  passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.update)
+router.put('/command/:idCommand', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.update)
 
 /**
  * @swagger
@@ -184,8 +155,6 @@ router.put('/command/:idCommand',  passport.authenticate('bearer', {session: fal
  *         description: Retorna que se elimino el comando
  */
 router.delete('/command/:idCommand', passport.authenticate('bearer', {session: false}), completeUser, CommandPrivateControllers.delete)
-
-
 
 /**
  * @swagger

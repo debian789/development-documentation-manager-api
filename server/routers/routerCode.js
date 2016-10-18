@@ -27,7 +27,7 @@ code.get('/code-public/:id', (req, res) => {
 })
 
 code.put('/code-private', Utils.validateAutentication, (req, res) => {
-res.send('hola')
+  res.send('hola')
 })
 
 module.exports = code

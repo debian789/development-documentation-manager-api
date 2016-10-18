@@ -2,8 +2,6 @@
 var CommandsSchema = require('server/models/CommandsSchema')
 var util_rest = require('server/controllers/util_rest')
 
-
-
 var CommandsInit = function (CommandModel) {
   var CommandPublicControllers = {}
 
@@ -17,15 +15,7 @@ var CommandsInit = function (CommandModel) {
     return util_rest.getById(CommandsSchema, req.params.idCommand, req, res)
   }
 
-
-  // query by state is_public true
-  // buscar
-  // editar
-  // eliminar
-
-  // crear
   return CommandPublicControllers
 }
-
 
 module.exports = CommandsInit

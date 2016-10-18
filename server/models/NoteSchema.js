@@ -10,4 +10,4 @@ let NoteSchema = new Schema({
   is_edit: {type: Boolean, default: false}
 })
 
-module.exports =  mongoose.model('Note', NoteSchema)
+module.exports = mongoose.model('Note', NoteSchema)

@@ -2,8 +2,6 @@
 var CommandsSchema = require('server/models/CommandsSchema')
 var util_rest = require('server/controllers/util_rest')
 
-
-
 var CommandsInit = function (CommandModel) {
   var CommandPrivateControllers = {}
 
@@ -27,14 +25,13 @@ var CommandsInit = function (CommandModel) {
 
   // delete
   CommandPrivateControllers.delete = function (req, res) {
-    return util_rest.delete(CommandsSchema, req.params.idCommand,req, res)
+    return util_rest.delete(CommandsSchema, req.params.idCommand, req, res)
   }
 
   // consultar por id
   CommandPrivateControllers.detail = function (req, res) {
-    return util_rest.getById(CommandsSchema, req.params.idCommand,req, res)
+    return util_rest.getById(CommandsSchema, req.params.idCommand, req, res)
   }
-
 
   return CommandPrivateControllers
 }
