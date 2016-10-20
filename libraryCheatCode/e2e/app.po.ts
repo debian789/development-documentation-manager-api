@@ -1,3 +1,5 @@
+import { browser, element, by } from 'protractor';
+
 export class LibraryCheatCodePage {
   navigateTo() {
     return browser.get('/');
