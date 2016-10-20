@@ -2,12 +2,15 @@
 var futures = require('futures')
 var request = require('supertest')
 var expect = require('chai').expect
+let chai = require('chai');
+let chaiHttp = require('chai-http');
 var mongoose = require('mongoose')
 var async = require('async')
 var jwt = require('jsonwebtoken')
 var mockgoose = require('mockgoose')
+let request2 = require('request')
 mockgoose(mongoose)
-
+chai.use(chaiHttp);
 var mails = require('server/config/mails')
 
 function MailStub (options) {
@@ -23,13 +26,17 @@ MailStub.prototype.send = function (mail, cb) {
 }
 
 var server = require('server/app')()
+// var superagent = require('superagent');
+var agent = request.agent(server);
+
+console.log(agent)
 // var server = request.agent('http://localhost:3000')
 describe('CommandPublicControllers', function () {
   var idUserTemp = ''
   var lastMail = {}
 
   beforeEach(function (doneFirst) {
-    mockgoose.reset()
+     mockgoose.reset()
 
     mails.init(new MailStub({
       customCallback: function (mail) {
@@ -47,40 +54,39 @@ describe('CommandPublicControllers', function () {
       request(server)
         .post('/api/users')
         .send({
-          'username': 'debian789',
-          'email': 'debian789@gmail.com',
+          'username': 'debian789y',
+          'email': 'debian789y@gmail.com',
           'password': '123456789'
         })
         .expect(200)
         .end(function (err, res) {
           expect(err).to.be.null
           expect(res.body).to.have.property('_id')
-          expect(res.body).to.have.property('username', 'debian789')
-          expect(res.body).to.have.property('email', 'debian789@gmail.com')
+          expect(res.body).to.have.property('username', 'debian789y')
+          expect(res.body).to.have.property('email', 'debian789y@gmail.com')
           idUserTemp = res.body._id
-          //futures.sequence().then(function() {
-           request(server)
-             .get('/api/sessions')
-             .send({
-                 'email': res.body.email,
-                 'password': '123456789'
+          // return doneFirst()
 
-             })
-             .expect(200)
-             // .expect('Content-Type', /json/)
-             .end(function(err, res2) {
-               expect(res2.body.token)
-               var data = jwt.decode(res2.body.token, 'xxx')
-               expect(data).to.have.property('username', 'debian789')
-               expect(data).to.have.property('iat')
-               expect(data).to.have.property('exp')
-               /* 30-days token */
-               expect(data.exp-data.iat).to.equal(43200)
-               return doneFirst()
-             })
-         //})
-
-        })
+          chai.request(server)
+            .post('/api/sessions')
+            .send({
+              "email": "debian789@gmail.com",
+              "password": "123456789"
+            })
+            .end(function(err, res2) {
+              console.log('----dddddd--------')
+              //console.log(err)
+              console.log(res2.body)
+              console.log('---ddddddd---------')
+              expect(res2.body.token)
+              var data = jwt.decode(res2.body.token, 'xxx')
+              expect(data).to.have.property('username', 'debian789')
+              expect(data).to.have.property('iat')
+              expect(data).to.have.property('exp')
+              expect(data.exp - data.iat).to.equal(43200)
+              return doneFirst()
+            })
+         })
     })
 
     it('Crear un comando y obtenerlo', function (doneOne) {
