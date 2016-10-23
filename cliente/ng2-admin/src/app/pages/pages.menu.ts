@@ -3,6 +3,19 @@ export const PAGES_MENU = [
     path: 'pages',
     children: [
       {
+        path: 'form-command',
+        data: {
+          menu: {
+            title: 'Commands',
+            icon: 'ion-android-home',
+            pathMatch: 'prefix',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'detail-commands',
         data: {
           menu: {
