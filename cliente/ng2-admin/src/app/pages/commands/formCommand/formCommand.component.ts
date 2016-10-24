@@ -1,6 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../../../theme/validators';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
   selector: 'form-command',
@@ -10,37 +11,102 @@ import {EmailValidator, EqualPasswordsValidator} from '../../../theme/validators
 export class FormCommandComponent {
 
   public form:FormGroup;
-  public name:AbstractControl;
-  public email:AbstractControl;
-  public password:AbstractControl;
-  public repeatPassword:AbstractControl;
-  public passwords:FormGroup;
+  public title:AbstractControl;
+  public is_edit:AbstractControl;
+  public is_public:AbstractControl;
 
   public submitted:boolean = false;
 
-  constructor(fb:FormBuilder) {
 
-    this.form = fb.group({
-      'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
-      'passwords': fb.group({
-        'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-        'repeatPassword': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
-      }, {validator: EqualPasswordsValidator.validate('password', 'repeatPassword')})
-    });
-
-    this.name = this.form.controls['name'];
-    this.email = this.form.controls['email'];
-    this.passwords = <FormGroup> this.form.controls['passwords'];
-    this.password = this.passwords.controls['password'];
-    this.repeatPassword = this.passwords.controls['repeatPassword'];
-  }
 
   public onSubmit(values:Object):void {
     this.submitted = true;
+    debugger
     if (this.form.valid) {
       // your code goes here
       // console.log(values);
     }
   }
+
+  query: string = '';
+
+  settings = {
+    add: {
+      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
+      createButtonContent: '<i class="ion-checkmark"></i>',
+      cancelButtonContent: '<i class="ion-close"></i>',
+    },
+    edit: {
+      editButtonContent: '<i class="ion-edit"></i>',
+      saveButtonContent: '<i class="ion-checkmark"></i>',
+      cancelButtonContent: '<i class="ion-close"></i>',
+    },
+    delete: {
+      deleteButtonContent: '<i class="ion-trash-a"></i>',
+      confirmDelete: true
+    },
+    columns: {
+      id: {
+        title: 'ID',
+        type: 'number'
+      },
+      firstName: {
+        title: 'First Name',
+        type: 'string'
+      },
+      lastName: {
+        title: 'Last Name',
+        type: 'string'
+      },
+      username: {
+        title: 'Username',
+        type: 'string'
+      },
+      email: {
+        title: 'E-mail',
+        type: 'string'
+      },
+      age: {
+        title: 'Age',
+        type: 'number'
+      }
+    }
+  };
+
+  source: LocalDataSource = new LocalDataSource();
+  constructor(fb:FormBuilder) {
+
+let data = [
+  {
+    "id": 1,
+    "firstName": "Mark",
+    "lastName": "Otto",
+    "username": "@mdo",
+    "email": "mdo@gmail.com",
+    "age": "28"
+  },
+  {
+    "id": 2,
+    "firstName": "Jacob",
+    "lastName": "Thornton",
+    "username": "@fat",
+    "email": "fat@yandex.ru",
+    "age": "45"
+  }];
+
+this.source.load(data);
+
+
+
+
+    this.form = fb.group({
+      'title': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'is_edit': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'is_public': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+    });
+
+    this.title = this.form.controls['title'];
+    this.is_edit = this.form.controls['is_edit'];
+  }
+
 }
