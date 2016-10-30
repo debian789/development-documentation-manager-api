@@ -7,4 +7,5 @@ const routes: Routes = [
     component: FormCommandComponent
   }
 ];
+
 export const routing = RouterModule.forChild(routes);
