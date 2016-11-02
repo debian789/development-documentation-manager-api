@@ -1,9 +1,6 @@
 <div class="auth-main">
   <div class="auth-block">
-    <h1>Sign up to ng2-admin</h1>
-    <a routerLink="/login" class="auth-link">Already have an ng2-admin account? Sign in!</a>
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
-
       <ba-card title="Datos basicos">
         <div class="col-md-6">
           <div class="form-group "
@@ -19,12 +16,17 @@
           <div class="form-group "
                [ngClass]="{'has-error': (!is_edit.valid && is_edit.touched), 'has-success': (is_edit.valid && is_edit.touched)}">
             <div class="">
-              <label class="checkbox-inline custom-radio">
-                <input [formControl]="is_edit" type="checkbox" name="is_edit" id="is_edit" value="option3">
-                <span>Publico</span>
+              <label  class="checkbox-inline custom-checkbox nowrap">
+                <input [formControl]="is_edit" type="checkbox" value="Publico" name="is_edit" id="is_id">
+                <span>Comando Editable</span>
               </label>
             </div>
           </div>
+        </div>
+        <div class="col-md-12 pull-right">
+          <button type="submit" class="btn btn-success">
+            Guardar
+          </button>
         </div>
         <div class="clearfix"></div>
       </ba-card>
