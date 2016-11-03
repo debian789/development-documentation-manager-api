@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ListCommandsComponent } from './listCommands.component';
 import { routing } from './listCommands.routing';
 import { NgaModule } from '../../../theme/nga.module';
+import {ListCommands} from './listCommands.service';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { NgaModule } from '../../../theme/nga.module';
   ],
   declarations: [
     ListCommandsComponent
-  ]
+  ],
+  providers: [ListCommands]
 })
 
 export default class ListCommandsModule {}

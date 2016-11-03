@@ -9,6 +9,7 @@ var compression = require('compression')
 var routes = require('server/routers/index')
 var api = require('server/routers/api')
 var passport = require('passport')
+var cors = require('cors')
 
 var auth = require("server/config/auth")
 
@@ -42,6 +43,7 @@ var appFunc = function(staticPath) {
   // view engine setup
   var app = express()
 
+  app.use(cors())
   app.set('view engine', 'jade')
 
   // uncomment after placing your favicon in /public

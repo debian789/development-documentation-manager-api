@@ -11,6 +11,13 @@
             </div>
           </div>
           <br/>
+
+          <ul>
+            <li *ngFor="let item of dataList.data   ">
+              - {{item.title}}
+            </li>
+          </ul>
+
           <table class="table table-condensed">
             <thead>
             <tr>
