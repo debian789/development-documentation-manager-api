@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'maps', loadChildren: () => System.import('./maps/maps.module') },
       { path: 'list-commands', loadChildren: () => System.import('./commands/listCommands/listCommands.module') },
       { path: 'form-command', loadChildren: () => System.import('./commands/formCommand/formCommand.module') },
-      { path: 'detail-command', loadChildren: () => System.import('./commands/detailCommand/detailCommand.module') }
+      { path: 'detail-command/:id', loadChildren: () => System.import('./commands/detailCommand/detailCommand.module') }
     ]
   }
 ];

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import {ResetServices} from './services/rest.services';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -17,6 +18,7 @@ import { AppState, InternalStateType } from './app.service';
 import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { PagesModule } from './pages/pages.module';
+import {Constans} from "./app.constans";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -50,7 +52,9 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    {provide: 'serviceData', useClass:ResetServices},
+    {provide: 'constansGlobal', useClass:Constans}
   ]
 })
 
