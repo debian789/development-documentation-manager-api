@@ -4,6 +4,8 @@ import { DetailCommandComponent } from './detailCommand.component';
 import { routing } from './detailCommand.routing';
 import { NgaModule } from '../../../theme/nga.module';
 
+import {CommandsService} from '../commands.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -12,7 +14,8 @@ import { NgaModule } from '../../../theme/nga.module';
   ],
   declarations: [
     DetailCommandComponent
-  ]
+  ],
+  providers: [CommandsService]
 })
 
 export default class DetailCommandModule {}

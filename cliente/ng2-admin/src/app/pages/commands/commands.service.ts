@@ -14,4 +14,10 @@ export class CommandsService {
       callback(data)
     })
   }
+
+  getCommand(id,callback): void {
+    this.serviceData.getData('command-public/command/' + id, (data) => {
+      callback(data)
+    })
+  }
 }

@@ -1,5 +1,6 @@
 import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, Params} from "@angular/router";
+import {CommandsService} from "../commands.service";
 
 @Component({
   selector: 'detail-command',
@@ -8,16 +9,22 @@ import {ActivatedRoute, Router, Params} from "@angular/router";
 })
 
 export class DetailCommandComponent implements OnInit {
+
+  detailData: any = {};
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private commandsService:CommandsService
+
     ) {}
 
   ngOnInit() {
+    let self = this
     this.route.params.forEach((params: Params) => {
-      let id = +params['id']; // (+) converts string 'id' to a number
-      debugger
-      // this.service.getHero(id).then(hero => this.hero = hero);
+      this.commandsService.getCommand(params['id'],(data) => {
+        self.detailData = data;
+      });
     });
   }
 

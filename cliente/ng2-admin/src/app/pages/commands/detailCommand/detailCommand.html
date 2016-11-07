@@ -2,47 +2,30 @@
   <div class="row">
     <ba-card class="col-xlg-12 col-xl-12 col-lg-12 col-sm-12 col-xs-12"
              title="Acquisition Channels">
-      <h1>Nombre del comando</h1>
+      <h1>{{detailData.title}}</h1>
+      editable {{detailData.is_edit}} <br/>
+      public {{detailData.is_public}} <br/>
+
       <table class="table table-condensed">
         <thead>
         <tr>
           <th class="browser-icons"></th>
           <th>Instrucción</th>
           <th class="align-right">Descripcion</th>
-          <th class="align-right">Fecha de creación</th>
+          <th class="align-right"></th>
         </tr>
         </thead>
         <tbody>
-        <tr class='no-top-border'>
+        <tr class='no-top-border' *ngFor="let command of detailData.itemsCommand">
           <td><span class="fa fa-terminal"></span></td>
-          <td class="align-right"> ajlsd asdj lfjasdlj flasdjfl jsaldjflasdj lfjasdlfjlasdjlf sdl sadflas djlfjasldf j
-          </td>
-          <td class="align-right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-            qui officia deserunt mollit anim id est laborum.
-          </td>
+          <td class="align-left"> {{command.command}} </td>
+          <td class="align-right"> {{command.description}}</td>
           <td class="align-right">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             <i class="fa fa-trash-o" aria-hidden="true"></i>
           </td>
         </tr>
-        <tr class='no-top-border'>
-          <td><span class="fa fa-terminal"></span></td>
-          <td class="align-right"> ajlsd asdj lfjasdlj flasdjfl jsaldjflasdj lfjasdlfjlasdjlf sdl sadflas djlfjasldf j
-          </td>
-          <td class="align-right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-            qui officia deserunt mollit anim id est laborum.
-          </td>
-          <td class="align-right">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
-          </td>
-        </tr>
+
         </tbody>
       </table>
     </ba-card>

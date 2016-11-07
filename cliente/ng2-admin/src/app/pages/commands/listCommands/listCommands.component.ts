@@ -10,9 +10,9 @@ import {CommandsService} from '../commands.service';
 export class ListCommandsComponent {
 
   dataList: any = {};
-  constructor(private listCommands:CommandsService) {
+  constructor(private commandsService:CommandsService) {
     let self = this
-    listCommands.getCommands((data) => {
+    commandsService.getCommands((data) => {
       self.dataList = data
     });
 
