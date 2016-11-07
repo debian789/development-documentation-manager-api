@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import {ListCommandsService} from './listCommands.service';
+import {CommandsService} from '../commands.service';
 
 @Component({
   selector: 'list-commands',
@@ -10,7 +10,7 @@ import {ListCommandsService} from './listCommands.service';
 export class ListCommandsComponent {
 
   dataList: any = {};
-  constructor(private listCommands:ListCommandsService) {
+  constructor(private listCommands:CommandsService) {
     let self = this
     listCommands.getCommands((data) => {
       self.dataList = data

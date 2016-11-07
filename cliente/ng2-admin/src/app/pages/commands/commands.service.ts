@@ -2,7 +2,7 @@ import {Injectable, Inject} from "@angular/core";
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class ListCommandsService {
+export class CommandsService {
   constructor( @Inject('serviceData') private serviceData) {
   }
   data: Object;
