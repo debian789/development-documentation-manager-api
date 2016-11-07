@@ -16,7 +16,8 @@ import { routing }       from './login.routing';
     routing
   ],
   declarations: [
-    Login
+    Login,
+
   ]
 })
 export default class LoginModule {}

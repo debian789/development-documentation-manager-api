@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, Inject} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
@@ -13,8 +13,9 @@ export class Login {
   public email:AbstractControl;
   public password:AbstractControl;
   public submitted:boolean = false;
+  public errorLogin: boolean= false;
 
-  constructor(fb:FormBuilder) {
+  constructor(fb:FormBuilder,@Inject('serviceData') private serviceData) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -26,7 +27,17 @@ export class Login {
 
   public onSubmit(values:Object):void {
     this.submitted = true;
+    let self = this;
+    self.errorLogin = false;
     if (this.form.valid) {
+      this.serviceData.postData('sessions', values, (status, data) => {
+        if (status === 200) {
+
+        } else if (status === 401) {
+          self.errorLogin = true;
+
+        }
+      });
       // your code goes here
       // console.log(values);
     }

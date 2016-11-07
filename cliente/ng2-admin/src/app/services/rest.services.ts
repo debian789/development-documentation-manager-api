@@ -15,7 +15,14 @@ export class ResetServices {
       });
   }
 
-  postData() {}
+  public postData(url, data, callback) {
+    this.http.post(this.constansGlobal.urlConection +  url, data)  // 'http://localhost:3000/api/command-public/all')
+      .subscribe((res: Response) => {
+        callback(res.status, res.json())
+      }, (err) => {
+        callback(err.status)
+      });
+  }
 
   putData() {}
 
