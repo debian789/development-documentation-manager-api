@@ -1,20 +1,17 @@
-import {Injectable} from "@angular/core";
-import {Http, Response} from '@angular/http';
+import {Injectable, Inject} from "@angular/core";
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ListCommandsService {
-  constructor(private http:Http) {
+  constructor( @Inject('serviceData') private serviceData) {
   }
   data: Object;
 
   title = 'hola mundo !!!! ';
 
   getCommands(callback): void {
-    this.http.request('http://localhost:3000/api/command-public/all')
-      .subscribe((res: Response) => {
-        callback(res.json())
-        //this.data = res.json();
-      });
+    this.serviceData.getData('command-public/all',(data) => {
+      callback(data)
+    })
   }
 }
