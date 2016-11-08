@@ -1,5 +1,7 @@
 import {Component, ViewEncapsulation, Inject} from '@angular/core';
 import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'login',
@@ -15,7 +17,12 @@ export class Login {
   public submitted:boolean = false;
   public errorLogin: boolean= false;
 
-  constructor(fb:FormBuilder,@Inject('serviceData') private serviceData) {
+  constructor(
+    fb:FormBuilder,
+    @Inject('serviceData') private serviceData,
+    private storage:SessionStorageService,
+    protected router: Router
+  ) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -32,14 +39,12 @@ export class Login {
     if (this.form.valid) {
       this.serviceData.postData('sessions', values, (status, data) => {
         if (status === 200) {
-
+          self.storage.store('user',data);
+          this.router.navigate(['/pages/dashboard']);
         } else if (status === 401) {
           self.errorLogin = true;
-
         }
       });
-      // your code goes here
-      // console.log(values);
     }
   }
 }
