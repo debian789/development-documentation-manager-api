@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import {ResetServices} from './services/rest.services';
+import {ResetServices} from './core/services/rest.services';
 
 /*
  * Platform and Environment providers/directives/pipes
