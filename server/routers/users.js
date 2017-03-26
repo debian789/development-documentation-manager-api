@@ -1,9 +1,9 @@
-var express = require('express')
-var router = express.Router()
-var passport = require('passport')
+const express = require('express')
+const router = express.Router()
+const passport = require('passport')
 
-var UserModel = require('server/models/UserSchema')
-var users = require('server/controllers/UsersControllers')(UserModel)
+const UserModel = require('server/models/UserSchema')
+const users = require('server/controllers/UsersControllers')(UserModel)
 
 /* Register user */
 router.post('/', users.create)

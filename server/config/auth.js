@@ -1,8 +1,8 @@
-var jwt = require('jsonwebtoken')
-var LocalStrategy = require('passport-local').Strategy
-var BearerStrategy = require('passport-http-bearer').Strategy
+const jwt = require('jsonwebtoken')
+const LocalStrategy = require('passport-local').Strategy
+const BearerStrategy = require('passport-http-bearer').Strategy
 
-var auth = {}
+let auth = {}
 
 auth.init = function (passport, userGetter, options) {
   if (!options.token_secret) {
@@ -14,8 +14,8 @@ auth.init = function (passport, userGetter, options) {
 
   passport.use(new BearerStrategy(
     function (token, done) {
-      jwt.verify(token, auth.options.token_secret, function (err, decoded_user) {
-        return done(err, decoded_user)
+      jwt.verify(token, auth.options.token_secret, function (err, decodedUser) {
+        return done(err, decodedUser)
       })
     }
   ))
@@ -31,7 +31,7 @@ auth.init = function (passport, userGetter, options) {
 
 auth.genToken = function (data) {
   if (!auth.options) {
-    new Error('Call "auth.init()" before using this function')
+    return new Error('Call "auth.init()" before using this function')
   }
 
   return jwt.sign(data, auth.options.token_secret, {expiresIn: auth.options.expiresIn || 1440})

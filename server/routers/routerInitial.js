@@ -1,7 +1,7 @@
 'use strict'
-var Router = require('express')
-var passport = require('passport')
-// var UserSchema = require('server/models/userSchema')
+const Router = require('express')
+const passport = require('passport')
+// const UserSchema = require('server/models/userSchema')
 
 let initial = Router()
 

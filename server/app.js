@@ -1,47 +1,22 @@
-var swaggerJSDoc = require('swagger-jsdoc')
-var express = require('express')
-var path = require('path')
-var favicon = require('serve-favicon')
-var logger = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var compression = require('compression')
-var routes = require('server/routers/index')
-var api = require('server/routers/api')
-var passport = require('passport')
-var cors = require('cors')
+const express = require('express')
+// const path = require('path')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const compression = require('compression')
+const routes = require('server/routers/index')
+const api = require('server/routers/api')
+const passport = require('passport')
+const cors = require('cors')
 
-var auth = require("server/config/auth")
+// const auth = require("server/config/auth")
 
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/mydb')
-var appFunc = function(staticPath) {
-
-  // swagger definition
-  var swaggerDefinition = {
-    info: {
-      title: 'Node Swagger API',
-      version: '1.0.0',
-      description: 'Demonstrating how to describe a RESTful APIfff with Swagger'
-    }
-    // host: 'localhost:3000',
-    // basePath: '/'
-  }
-
-  // options for the swagger docs
-  var options = {
-    // import swaggerDefinitions
-    swaggerDefinition: swaggerDefinition,
-    // path to the API docs
-    apis: ['server/routers/*']
-  }
-
-  // initialize swagger-jsdoc
-  var swaggerSpec = swaggerJSDoc(options)
-
+const appFunc = function (staticPath) {
   // staticPath = staticPath || path.join(__dirname, 'public')
   // view engine setup
-  var app = express()
+  const app = express()
 
   app.use(cors())
   app.set('view engine', 'jade')
@@ -62,15 +37,9 @@ var appFunc = function(staticPath) {
   app.use('/', routes)
   app.use('/api', api)
 
-  // serve swagger
-  app.get('/swagger.json', function (req, res) {
-    res.setHeader('Content-Type', 'application/json')
-    res.send(swaggerSpec)
-  })
-
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
-    var err = new Error('Not Found')
+    const err = new Error('Not Found')
     err.status = 404
     next(err)
   })

@@ -1,17 +1,16 @@
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer')
 
-var mails = {};
+let mails = {}
 
-mails.init = function(transportConfig, options) {
-	mails.transport = nodemailer.createTransport(transportConfig);
-	mails.options = options || {};
-	/* Server-specific static values for emails */
-	mails.options.static_context = options.static_context || {};
-};
+mails.init = function (transportConfig, options) {
+  mails.transport = nodemailer.createTransport(transportConfig)
+  mails.options = options || {}
+  /* Server-specific static values for emails */
+  mails.options.static_context = options.static_context || {}
+}
 
-mails.send = function(mailOptions, cb) {
-	mails.transport.sendMail(mailOptions, cb);
-};
+mails.send = function (mailOptions, cb) {
+  mails.transport.sendMail(mailOptions, cb)
+}
 
-
-module.exports = mails;
+module.exports = mails

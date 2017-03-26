@@ -1,7 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var passport = require('passport')
-var auth = require('server/config/auth')
+const express = require('express')
+const router = express.Router()
+const passport = require('passport')
+const auth = require('server/config/auth')
 
 /**
  * @swagger
@@ -92,7 +92,7 @@ var auth = require('server/config/auth')
  */
 router.post('/',
   passport.authenticate('local', {session: false}), function (req, res) {
-    var dataUser = {
+    const dataUser = {
       email: req.user.email,
       username: req.user.username,
       _id: req.user._id
@@ -126,7 +126,7 @@ router.post('/',
  */
 router.put('/',
   passport.authenticate('bearer', {session: false}), function (req, res) {
-    var dataUser = {
+    const dataUser = {
       email: req.user.email,
       username: req.user.username,
       _id: req.user._id

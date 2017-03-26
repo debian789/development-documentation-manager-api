@@ -1,56 +1,55 @@
-var path = require('path');
-var emailTemplates = require('email-templates');
-var winston = require('winston');
-var templatesDir = path.join(__dirname, '../templates');
-var mails = require('server/config/mails');
+const path = require('path')
+const emailTemplates = require('email-templates')
+const winston = require('winston')
+const templatesDir = path.join(__dirname, '../templates')
+const mails = require('server/config/mails')
 
-var mail_utils = {};
+const mailUtils = {}
 
-mail_utils.getBaseOptions = function() {
-    return {
-        from: mails.options.defaultFrom || 'debian789@email.com'
+mailUtils.getBaseOptions = function () {
+  return {
+    from: mails.options.defaultFrom || 'debian789@email.com'
+  }
+}
+
+mailUtils.renderActivationMail = function (user, cb) {
+  /* Performance issues */
+  emailTemplates(templatesDir, function (err, template) {
+    if (err) {
+      return cb(err)
     }
-};
+    // Render a single email with one template
+    let context = {user: user, statics: mails.options.static_context}
 
-mail_utils.renderActivationMail = function(user, cb) {
-    /* Performance issues */
-    emailTemplates(templatesDir, function(err, template) {
-        if (err) {
-            return cb(err);
-        }
-        // Render a single email with one template
-        var context = {user: user, statics: mails.options.static_context};
+    template('activation_mail', context, function (err, html, text) {
+      return cb(err, html, text)
+    })
+  })
+}
 
-        template('activation_mail', context, function(err, html, text) {
-            return cb(err, html, text)
-        });
+mailUtils.sendActivationMail = function (user, cb) {
+  mailUtils.renderActivationMail(user, function (err, html, text) {
+    if (err) {
+      return cb(err)
+    }
 
-    });
-};
+    let mailOptions = mailUtils.getBaseOptions()
 
-mail_utils.sendActivationMail = function(user, cb) {
-    mail_utils.renderActivationMail(user, function(err, html, text) {
-        if (err) {
-            return cb(err);
-        }
+    mailOptions.to = user.email
+    mailOptions.subject = 'Welcome ' + user.username + ', activate your account'
+    mailOptions.text = text
+    mailOptions.html = html
 
-        var mailOptions = mail_utils.getBaseOptions();
+    mails.send(mailOptions, function (err, info) {
+      winston.log('Sent mail')
+      winston.log(info)
+      if (err) {
+        winston.error(err)
+      }
 
-        mailOptions.to = user.email;
-        mailOptions.subject = 'Welcome ' + user.username + ', activate your account';
-        mailOptions.text = text,
-        mailOptions.html = html;
+      cb(err, info)
+    })
+  })
+}
 
-        mails.send(mailOptions, function(err, info) {
-            winston.log("Sent mail");
-            winston.log(info);
-            if (err) {
-                winston.error(err);
-            }
-
-            cb(err, info);
-        });
-    });
-};
-
-module.exports = mail_utils;
+module.exports = mailUtils

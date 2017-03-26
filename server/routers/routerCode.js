@@ -1,9 +1,9 @@
 'use strict'
-var Router = require('express')
-var CodeSchema = require('server/models/CodeSchema')
-var Utils = require('server/routers/Utils')
+const Router = require('express')
+const CodeSchema = require('server/models/CodeSchema')
+const Utils = require('server/routers/Utils')
 
-var code = Router()
+const code = Router()
 
 code.get('/code-public', (req, res) => {
   CodeSchema.find({'is_public': true}).exec(function (err, data) {

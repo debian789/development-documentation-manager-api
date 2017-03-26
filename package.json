@@ -15,7 +15,8 @@
     "server3": "DB_Conection='test' NODE_PATH=. node bin/www",
     "stylusGenerar": "stylus -c cliente/stylus/style.stly -o public/static/css",
     "stylus": "stylus -w -c cliente/stylus/style.stly -o public/static/css",
-    "start": "  npm run dist && npm run server2"
+    "start": "  npm run dist && npm run server2",
+    "lint": "standard"
   },
   "author": "Miguel Suescun <debian789@gmail.com>",
   "license": "ISC",
@@ -64,10 +65,12 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
     "chai": "^3.5.0",
     "istanbul": "^0.4.3",
     "mocha": "^2.5.3",
     "mockgoose": "^6.0.3",
+    "standard": "^9.0.2",
     "supertest": "^2.0.0"
   },
   "standard": {
