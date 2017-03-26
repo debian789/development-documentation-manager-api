@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
-const UserModel = require('server/models/UserSchema')
-const users = require('server/controllers/UsersControllers')(UserModel)
+const UserModel = require('server/models/userSchema')
+const users = require('server/controllers/usersControllers')(UserModel)
 
 /* Register user */
 router.post('/', users.create)
