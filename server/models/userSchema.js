@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
-const passportLocalMongoose = require('passport-local-mongoose')
-const jsonSelect = require('mongoose-json-select')
-const mongooseToken = require('mongoose-token')
-const validator = require('validator')
+import mongoose from 'mongoose'
+import passportLocalMongoose from 'passport-local-mongoose'
+import jsonSelect from 'mongoose-json-select'
+import mongooseToken from 'mongoose-token'
+import validator from 'validator'
 
 const userSchema = mongoose.Schema({
   username: {
@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema({
   } // Permite ingresar al panel administrativo avanzado
 })
 
-const myPasswordValidator = function (password, cb) {
+function myPasswordValidator (password, cb) {
   if (!validator.isLength(password, 4, 32)) {
     return cb({
       code: 400,
@@ -99,4 +99,4 @@ userSchema.path('username').validate(function (username) {
   return validator.isLength(username, 4, 32)
 }, 'Username should be between 4 and 32 chars.')
 
-module.exports = mongoose.model('User', userSchema)
+export default mongoose.model('User', userSchema)

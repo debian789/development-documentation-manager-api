@@ -1,17 +1,17 @@
-const express = require('express')
+import express from 'express'
 // const path = require('path')
-const logger = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const compression = require('compression')
-const routes = require('server/routers/index')
-const api = require('server/routers/api')
-const passport = require('passport')
-const cors = require('cors')
+import logger from 'morgan'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import compression from 'compression'
+import routes from 'server/routers/index'
+import api from 'server/routers/api'
+import passport from 'passport'
+import cors from 'cors'
 
 // const auth = require("server/config/auth")
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 mongoose.connect('mongodb://localhost/mydb')
 const appFunc = function (staticPath) {
   // staticPath = staticPath || path.join(__dirname, 'public')

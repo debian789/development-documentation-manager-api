@@ -1,6 +1,5 @@
 'use strict'
-
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 let Schema = mongoose.Schema
 // const LenguageSchema = require('server/models/LenguageSchema')
 
@@ -16,4 +15,4 @@ let codeSchema = new Schema({
   user: {type: Schema.ObjectId, ref: 'User'}
 })
 
-module.exports = mongoose.model('Code', codeSchema)
+export default mongoose.model('Code', codeSchema)

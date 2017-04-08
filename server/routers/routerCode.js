@@ -1,7 +1,7 @@
 'use strict'
-const Router = require('express')
-const codeSchema = require('server/models/codeSchema')
-const Utils = require('server/routers/Utils')
+import Router from 'express'
+import codeSchema from 'server/models/codeSchema'
+import Utils from 'server/routers/Utils'
 
 const code = Router()
 

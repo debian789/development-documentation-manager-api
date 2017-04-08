@@ -1,6 +1,6 @@
 'use strict'
-const Router = require('express')
-const passport = require('passport')
+import Router from 'express'
+import passport from 'passport'
 // const UserSchema = require('server/models/userSchema')
 
 let initial = Router()
@@ -14,4 +14,4 @@ initial.post('/login', passport.authenticate('local', {
   failureRedirect: '/login'
 }))
 
-module.exports = initial
+export default initial

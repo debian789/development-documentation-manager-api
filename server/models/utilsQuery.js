@@ -1,5 +1,5 @@
-const _ = require('underscore')
-const urlUtil = require('url')
+import _ from 'underscore'
+import urlUtil from 'url'
 
 const utilsQuery = {}
 
@@ -150,4 +150,4 @@ utilsQuery.saveExisting = function (Model, id, obj, fields, cb) {
   })
 }
 
-module.exports = utilsQuery
+export default utilsQuery

@@ -1,14 +1,19 @@
-var express = require('express')
-var router = express.Router()
+import express from 'express'
+const router = express.Router()
 
 router.get('/', function (req, res) {
   res.send('root for the API')
 })
 
-/* Used as meta-router */
-router.use('/users', require('server/routers/users'))
-router.use('/command-public', require('server/routers/commandsPublicRouter'))
-router.use('/command-private', require('server/routers/commandsPrivateRouter'))
-router.use('/sessions', require('server/routers/sessions'))
+import users from 'server/routers/users'
+import commandsPublicRouter from 'server/routers/commandsPublicRouter'
+import commandsPrivateRouter from 'server/routers/commandsPrivateRouter'
+import sessions from 'server/routers/sessions'
 
-module.exports = router
+/* Used as meta-router */
+router.use('/users', users)
+router.use('/command-public', commandsPublicRouter)
+router.use('/command-private', commandsPrivateRouter)
+router.use('/sessions', sessions)
+
+export default router

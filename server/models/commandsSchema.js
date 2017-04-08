@@ -1,5 +1,5 @@
 'use strict'
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 // const ItemsComandSchema = require('server/models/ItemsCommandSchema')
 let Schema = mongoose.Schema
 
@@ -17,4 +17,4 @@ let commandsSchema = new Schema({
   }]
 })
 
-module.exports = mongoose.model('Commands', commandsSchema)
+export default mongoose.model('Commands', commandsSchema)

@@ -1,10 +1,10 @@
 'use strict'
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 let Schema = mongoose.Schema
 
 let lenguageSchema = new Schema({
   name: {type: String, required: true}
 })
 
-module.exports = mongoose.model('Lenguage', lenguageSchema)
+export default mongoose.model('Lenguage', lenguageSchema)

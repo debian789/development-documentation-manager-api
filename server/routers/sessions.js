@@ -1,7 +1,7 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const passport = require('passport')
-const auth = require('server/config/auth')
+import passport from 'passport'
+import auth from 'server/config/auth'
 
 /* Authenticates with password, returns a new token and user */
 
@@ -35,4 +35,4 @@ router.get('/', passport.authenticate('bearer', {session: false}), function (req
 
 /* TODO : A token revocation system (using .delete) */
 
-module.exports = router
+export default router

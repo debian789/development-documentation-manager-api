@@ -1,8 +1,7 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const passport = require('passport')
-
-const UserModel = require('server/models/userSchema')
+import passport from 'passport'
+import UserModel from 'server/models/userSchema'
 const users = require('server/controllers/usersControllers')(UserModel)
 
 /* Register user */
@@ -19,4 +18,4 @@ router.get('/', users.all)
 router.get('/:userid', users.get)
 /**/
 
-module.exports = router
+export default router

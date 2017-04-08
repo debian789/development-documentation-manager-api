@@ -1,8 +1,7 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const passport = require('passport')
-
-const commandsSchema = require('server/models/commandsSchema')
+import passport from 'passport'
+import commandsSchema from 'server/models/commandsSchema'
 const commandPrivateControllers = require('server/controllers/commandPrivateControllers')(commandsSchema)
 
 function completeUser (req, res, next) {
@@ -16,4 +15,4 @@ router.put('/command/:idCommand', passport.authenticate('bearer', {session: fals
 router.delete('/command/:idCommand', passport.authenticate('bearer', {session: false}), completeUser, commandPrivateControllers.delete)
 router.get('/command/:idCommand', passport.authenticate('bearer', {session: false}), completeUser, commandPrivateControllers.detail)
 
-module.exports = router
+export default router
