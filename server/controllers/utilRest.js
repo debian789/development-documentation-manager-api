@@ -1,5 +1,5 @@
 const winston = require('winston')
-const _ = require('underscore')
+import _ from 'underscore'
 const utilsQuery = require('server/models/utilsQuery')
 const utilRest = {}
 

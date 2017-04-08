@@ -1,36 +1,35 @@
 #!/usr/bin/env node
-var debug = require('debug')('express-structure');
-var app = require('server/app')();
-var winston = require('winston');
-var userModel = require('server/models/userSchema');
-winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, {'timestamp':true});
+var debug = require('debug')('express-structure')
+var app = require('server/app')()
+var winston = require('winston')
+var userModel = require('server/models/userSchema')
+winston.remove(winston.transports.Console)
+winston.add(winston.transports.Console, {'timestamp': true})
 
-var userGetter = userModel.authenticate();
+var userGetter = userModel.authenticate()
 
 /* Configures Authentication */
-var passport = require('passport');
-var auth = require("server/config/auth");
-auth.init(passport, userGetter, {token_secret: "xxx"});
+var passport = require('passport')
+var auth = require('server/config/auth')
+auth.init(passport, userGetter, {token_secret: 'xxx'})
 
 /* Configure mails */
-var mails = require('server/config/mails');
-var smtpTransporterConfig =  {
-  host: "mailtrap.io",
+var mails = require('server/config/mails')
+var smtpTransporterConfig = {
+  host: 'mailtrap.io',
   port: 2525,
   auth: {
-    user: "ef0b7164ac711c",
-    pass: "e8b9b3a44fb388"
+    user: 'ef0b7164ac711c',
+    pass: 'e8b9b3a44fb388'
   }
-};
-
+}
 
 mails.init(smtpTransporterConfig, {
-    static_context: {baseuri: "http://localhost/"}
-});
+  static_context: {baseuri: 'http://localhost/'}
+})
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000)
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
-});
+var server = app.listen(app.get('port'), function () {
+  debug('Express server listening on port ' + server.address().port)
+})
