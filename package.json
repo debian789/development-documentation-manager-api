@@ -68,6 +68,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "ava": "^0.19.0",
     "babel-eslint": "^7.2.1",
     "mockgoose": "^6.0.3",
     "standard": "^9.0.2",

@@ -2,7 +2,8 @@ import express from 'express'
 const router = express.Router()
 import passport from 'passport'
 import commandsSchema from 'server/models/commandsSchema'
-const commandPrivateControllers = require('server/controllers/commandPrivateControllers')(commandsSchema)
+import CommandPrivateControllers from 'server/controllers/commandPrivateControllers'
+const commandPrivateControllers = new CommandPrivateControllers(commandsSchema)
 
 function completeUser (req, res, next) {
   req.body.user = req.user._id

@@ -2,7 +2,9 @@ import express from 'express'
 const router = express.Router()
 import passport from 'passport'
 import UserModel from 'server/models/userSchema'
-const users = require('server/controllers/usersControllers')(UserModel)
+// const users = require('server/controllers/usersControllers')(UserModel)
+import UserController from 'server/controllers/usersControllers'
+const users = new UserController(UserModel)
 
 /* Register user */
 router.post('/', users.create)
