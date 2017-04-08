@@ -1,8 +1,11 @@
+'use strict'
+
 import path from 'path'
 import emailTemplates from 'email-templates'
 import winston from 'winston'
-const templatesDir = path.join(__dirname, '../templates')
 import mails from '../config/mails'
+
+const templatesDir = path.join(__dirname, '../templates')
 
 export default class MailUitls {
   constructor (mailsOption) {

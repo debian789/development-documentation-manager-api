@@ -1,3 +1,5 @@
+'use strict'
+
 import utilRest from '../controllers/utilRest'
 import mailUtils from '../common/mailUtils'
 import httplikeErrors from '../common/httplikeErrors'

@@ -1,8 +1,11 @@
+'use strict'
+
 import express from 'express'
-const router = express.Router()
 import passport from 'passport'
 import commandsSchema from '../models/commandsSchema'
 import CommandPrivateControllers from '../controllers/commandPrivateControllers'
+
+const router = express.Router()
 const commandPrivateControllers = new CommandPrivateControllers(commandsSchema)
 
 function completeUser (req, res, next) {

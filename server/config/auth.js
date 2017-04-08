@@ -1,3 +1,5 @@
+'use strict'
+
 const jwt = require('jsonwebtoken')
 const LocalStrategy = require('passport-local').Strategy
 const BearerStrategy = require('passport-http-bearer').Strategy

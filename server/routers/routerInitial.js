@@ -1,4 +1,5 @@
 'use strict'
+
 import Router from 'express'
 import passport from 'passport'
 // const UserSchema = require('server/models/userSchema')

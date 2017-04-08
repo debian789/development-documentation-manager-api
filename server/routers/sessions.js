@@ -1,7 +1,10 @@
+'use strict'
+
 import express from 'express'
-const router = express.Router()
 import passport from 'passport'
 import auth from '../config/auth'
+
+const router = express.Router()
 
 /* Authenticates with password, returns a new token and user */
 

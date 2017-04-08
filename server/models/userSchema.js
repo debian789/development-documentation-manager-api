@@ -1,3 +1,5 @@
+'use strict'
+
 import mongoose from 'mongoose'
 import passportLocalMongoose from 'passport-local-mongoose'
 import jsonSelect from 'mongoose-json-select'

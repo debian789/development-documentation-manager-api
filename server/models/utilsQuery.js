@@ -1,3 +1,5 @@
+'use strict'
+
 import _ from 'underscore'
 import urlUtil from 'url'
 

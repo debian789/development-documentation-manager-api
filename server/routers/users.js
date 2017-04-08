@@ -1,9 +1,12 @@
+'use strict'
+
 import express from 'express'
-const router = express.Router()
 import passport from 'passport'
 import UserModel from '../models/userSchema'
-// const users = require('server/controllers/usersControllers')(UserModel)
 import UserController from '../controllers/usersControllers'
+// const users = require('server/controllers/usersControllers')(UserModel)
+
+const router = express.Router()
 const users = new UserController(UserModel)
 
 /* Register user */

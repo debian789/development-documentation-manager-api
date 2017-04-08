@@ -1,4 +1,5 @@
 'use strict'
+
 import mongoose from 'mongoose'
 let Schema = mongoose.Schema
 // const LenguageSchema = require('server/models/LenguageSchema')

@@ -1,14 +1,16 @@
+'use strict'
+
 import express from 'express'
+import users from '../routers/users'
+import commandsPublicRouter from '../routers/commandsPublicRouter'
+import commandsPrivateRouter from '../routers/commandsPrivateRouter'
+import sessions from '../routers/sessions'
+
 const router = express.Router()
 
 router.get('/', function (req, res) {
   res.send('root for the API')
 })
-
-import users from '../routers/users'
-import commandsPublicRouter from '../routers/commandsPublicRouter'
-import commandsPrivateRouter from '../routers/commandsPrivateRouter'
-import sessions from '../routers/sessions'
 
 /* Used as meta-router */
 router.use('/users', users)

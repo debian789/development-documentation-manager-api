@@ -1,3 +1,5 @@
+'use strict'
+
 const nodemailer = require('nodemailer')
 
 let mails = {}

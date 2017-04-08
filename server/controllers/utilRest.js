@@ -1,3 +1,5 @@
+'use strict'
+
 import winston from 'winston'
 import _ from 'underscore'
 import utilsQuery from '../models/utilsQuery'

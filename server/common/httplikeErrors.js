@@ -1,3 +1,5 @@
+'use strict'
+
 const httplikeErrors = {}
 
 httplikeErrors.fromMongo = function (err) {
