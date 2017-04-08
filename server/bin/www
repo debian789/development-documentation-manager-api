@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 var debug = require('debug')('express-structure')
-var app = require('server/app')()
+var app = require('../app')()
 import winston from 'winston'
-import userModel from 'server/models/userSchema'
+import userModel from '../models/userSchema'
 winston.remove(winston.transports.Console)
 winston.add(winston.transports.Console, {'timestamp': true})
 
@@ -10,11 +10,11 @@ var userGetter = userModel.authenticate()
 
 /* Configures Authentication */
 import passport from 'passport'
-import auth from 'server/config/auth'
+import auth from '../config/auth'
 auth.init(passport, userGetter, {token_secret: 'xxx'})
 
 /* Configure mails */
-import mails from 'server/config/mails'
+import mails from '../config/mails'
 var smtpTransporterConfig = {
   host: 'mailtrap.io',
   port: 2525,

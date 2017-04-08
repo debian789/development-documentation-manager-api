@@ -1,6 +1,6 @@
 import winston from 'winston'
 import _ from 'underscore'
-import utilsQuery from 'server/models/utilsQuery'
+import utilsQuery from '../models/utilsQuery'
 // const utilRest = {}
 
 export default class UtilRest {

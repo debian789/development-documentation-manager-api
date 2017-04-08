@@ -1,9 +1,9 @@
 import express from 'express'
 const router = express.Router()
 import passport from 'passport'
-import UserModel from 'server/models/userSchema'
+import UserModel from '../models/userSchema'
 // const users = require('server/controllers/usersControllers')(UserModel)
-import UserController from 'server/controllers/usersControllers'
+import UserController from '../controllers/usersControllers'
 const users = new UserController(UserModel)
 
 /* Register user */

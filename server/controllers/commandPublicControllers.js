@@ -1,6 +1,6 @@
 // const ItemsCommandSchema = require('server/models/ItemsCommandSchema')
-import commandsSchema from 'server/models/commandsSchema'
-import utilRest from 'server/controllers/utilRest'
+import commandsSchema from '../models/commandsSchema'
+import utilRest from '../controllers/utilRest'
 
 export default class CommandPublicControllers {
   constructor (CommandModel) {

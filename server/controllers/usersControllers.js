@@ -1,6 +1,6 @@
-import utilRest from 'server/controllers/utilRest'
-import mailUtils from 'server/common/mailUtils'
-import httplikeErrors from 'server/common/httplikeErrors'
+import utilRest from '../controllers/utilRest'
+import mailUtils from '../common/mailUtils'
+import httplikeErrors from '../common/httplikeErrors'
 
 export default class UsersController {
   constructor (UserModel) {

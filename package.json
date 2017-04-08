@@ -20,7 +20,7 @@
     "stylus": "stylus -w -c cliente/stylus/style.stly -o public/static/css",
     "start4": "  npm run dist && npm run server2",
     "start2": "  npm run dist && cd dist && NODE_PATH=. node dist/server/bin/www.js",
-    "start": " NODE_PATH=.  babel-node server/bin/www",
+    "start": "babel-node server/bin/www",
     "lint": "standard"
   },
   "author": "Miguel Suescun <debian789@gmail.com>",

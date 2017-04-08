@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 import passport from 'passport'
-import auth from 'server/config/auth'
+import auth from '../config/auth'
 
 /* Authenticates with password, returns a new token and user */
 

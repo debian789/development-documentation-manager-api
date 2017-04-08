@@ -1,7 +1,7 @@
 'use strict'
 import Router from 'express'
-import codeSchema from 'server/models/codeSchema'
-import Utils from 'server/routers/Utils'
+import codeSchema from '../models/codeSchema'
+import Utils from '../routers/Utils'
 
 const code = Router()
 
