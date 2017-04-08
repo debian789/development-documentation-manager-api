@@ -1,12 +1,12 @@
 'use strict'
 const Router = require('express')
-const CodeSchema = require('server/models/CodeSchema')
+const codeSchema = require('server/models/codeSchema')
 const Utils = require('server/routers/Utils')
 
 const code = Router()
 
 code.get('/code-public', (req, res) => {
-  CodeSchema.find({'is_public': true}).exec(function (err, data) {
+  codeSchema.find({'is_public': true}).exec(function (err, data) {
     if (err) {
       return res.sendStatus(500)
     }
@@ -17,7 +17,7 @@ code.get('/code-public', (req, res) => {
 
 code.get('/code-public/:id', (req, res) => {
   let id = req.params.id
-  CodeSchema.findone({'_id': id, 'is_public': true}, (err, data) => {
+  codeSchema.findone({'_id': id, 'is_public': true}, (err, data) => {
     if (err) {
       return res.sendStatus(500)
     }

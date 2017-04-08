@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 // const ItemsComandSchema = require('server/models/ItemsCommandSchema')
 let Schema = mongoose.Schema
 
-let CommandsSchema = new Schema({
+let commandsSchema = new Schema({
   title: {type: String, required: true},
   description: {type: String, required: false},
   is_edit: {type: Boolean, default: false},
@@ -17,4 +17,4 @@ let CommandsSchema = new Schema({
   }]
 })
 
-module.exports = mongoose.model('Commands', CommandsSchema)
+module.exports = mongoose.model('Commands', commandsSchema)

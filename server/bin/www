@@ -2,11 +2,11 @@
 var debug = require('debug')('express-structure');
 var app = require('server/app')();
 var winston = require('winston');
-var UserModel = require('server/models/UserSchema');
+var userModel = require('server/models/userSchema');
 winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, {'timestamp':true});
 
-var userGetter = UserModel.authenticate();
+var userGetter = userModel.authenticate();
 
 /* Configures Authentication */
 var passport = require('passport');

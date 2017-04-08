@@ -3,8 +3,8 @@
 const mongoose = require('mongoose')
 let Schema = mongoose.Schema
 
-let LenguageSchema = new Schema({
+let lenguageSchema = new Schema({
   name: {type: String, required: true}
 })
 
-module.exports = mongoose.model('Lenguage', LenguageSchema)
+module.exports = mongoose.model('Lenguage', lenguageSchema)

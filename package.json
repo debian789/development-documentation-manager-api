@@ -10,7 +10,8 @@
     "cp-static": "cp -r  cliente/static/ public/static",
     "coverage": "NODE_PATH=. DB_Conection='test' istanbul cover _mocha -- -R spec --recursive  test/server/**/*.spec.js",
     "dist2": "babel server/server.js server/**/*.js  --out-dir dist --presets es2015,react",
-    "dist": "babel server/server.js server/**/*.js  --out-dir dist",
+    "dist3": "babel server/server.js server/**/*.js  --out-dir dist",
+    "dist": "babel server/**/* server/**/*  --out-dir dist",
     "server1": "NODE_PATH=. babel-node  server/server --presets es2015,react ",
     "server2": "NODE_PATH=. babel-node  server/server ",
     "server": "NODE_PATH=./dist node dist/server/server.js",
@@ -18,7 +19,7 @@
     "stylusGenerar": "stylus -c cliente/stylus/style.stly -o public/static/css",
     "stylus": "stylus -w -c cliente/stylus/style.stly -o public/static/css",
     "start4": "  npm run dist && npm run server2",
-    "start": "  npm run dist && NODE_PATH=. node dist/bin/www",
+    "start": "  npm run dist && NODE_PATH=. node dist/server/bin/www.js",
     "lint": "standard"
   },
   "author": "Miguel Suescun <debian789@gmail.com>",

@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 let Schema = mongoose.Schema
 // const LenguageSchema = require('server/models/LenguageSchema')
 
-let CodeSchema = new Schema({
+let codeSchema = new Schema({
   title: {type: String, required: true},
   description: {type: String, required: false},
   lenguage: {type: Schema.ObjectId, ref: 'LenguageSchema'},
@@ -16,4 +16,4 @@ let CodeSchema = new Schema({
   user: {type: Schema.ObjectId, ref: 'User'}
 })
 
-module.exports = mongoose.model('Code', CodeSchema)
+module.exports = mongoose.model('Code', codeSchema)

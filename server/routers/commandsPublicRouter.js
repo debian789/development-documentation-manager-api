@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const CommandsSchema = require('server/models/CommandsSchema')
-const CommandPublicControllers = require('server/controllers/CommandPublicControllers')(CommandsSchema)
+const commandsSchema = require('server/models/commandsSchema')
+const commandPublicControllers = require('server/controllers/commandPublicControllers')(commandsSchema)
 
-router.get('/all', CommandPublicControllers.all)
-router.get('/command/:idCommand', CommandPublicControllers.getById)
+router.get('/all', commandPublicControllers.all)
+router.get('/command/:idCommand', commandPublicControllers.getById)
 
 module.exports = router

@@ -7,8 +7,8 @@ router.get('/', function (req, res) {
 
 /* Used as meta-router */
 router.use('/users', require('server/routers/users'))
-router.use('/command-public', require('server/routers/CommandsPublicRouter'))
-router.use('/command-private', require('server/routers/CommandsPrivateRouter'))
+router.use('/command-public', require('server/routers/commandsPublicRouter'))
+router.use('/command-private', require('server/routers/commandsPrivateRouter'))
 router.use('/sessions', require('server/routers/sessions'))
 
 module.exports = router
