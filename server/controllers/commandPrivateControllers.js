@@ -1,8 +1,8 @@
 'use strict'
 
-// const ItemsCommandSchema = require('server/models/ItemsCommandSchema')
 import commandsSchema from '../models/commandsSchema'
 import utilRest from '../controllers/utilRest'
+// const ItemsCommandSchema = require('server/models/ItemsCommandSchema')
 
 export default class CommandPrivateController {
   constructor (CommandModel) {

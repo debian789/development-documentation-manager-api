@@ -1,5 +1,4 @@
 import express from 'express'
-// const path = require('path')
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
@@ -8,10 +7,13 @@ import routes from './routers/index'
 import api from './routers/api'
 import passport from 'passport'
 import cors from 'cors'
+import mongoose from 'mongoose'
+import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
+
+// const path = require('path')
 
 // const auth = require("server/config/auth")
 
-import mongoose from 'mongoose'
 mongoose.connect('mongodb://localhost/mydb')
 const appFunc = function (staticPath) {
   // staticPath = staticPath || path.join(__dirname, 'public')
