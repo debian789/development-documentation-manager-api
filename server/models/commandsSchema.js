@@ -10,7 +10,7 @@ let commandsSchema = new Schema({
   is_edit: {type: Boolean, default: false},
   is_public: {type: Boolean, default: false},
   dateCreate: {type: Date, default: Date.now},
-  user: {type: Schema.ObjectId, ref: 'User'},
+  //user: {type: Schema.ObjectId, ref: 'User'},
   // ItemsCommand: [{type: Schema.ObjectId, ref: 'ItemsComandSchema'}]
   itemsCommand: [{
     command: {type: String, required: true},

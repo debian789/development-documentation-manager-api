@@ -1,5 +1,11 @@
 {
-  "presets": ["react", "es2015"],
-  "plugins": [],
-  "ignore": []
+  "passPerPreset": true,
+  "presets": [
+    "react",
+    "es2015",
+    "stage-0"
+  ],
+  "plugins": [
+    "babel-plugin-inline-import"
+  ]
 }
