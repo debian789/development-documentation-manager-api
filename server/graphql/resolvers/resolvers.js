@@ -1,45 +1,61 @@
-// import codeSchema from '../../models/codeSchema'
-import commandsSchema from '../../models/commandsSchema'
+//import codesSchema from '../../models/codesSchema'
+//import commandsSchema from '../../models/commandsSchema'
+import commandsQuery from './query/commandsQuery'
+import codesQuery from './query/codesQuery'
+
+import codesMutation from './mutation/codesMutation'
+import commandsMutation from './mutation/commandsMutation'
+
+// var mongoose = require('mongoose')
+
 // import { find, filter } from 'lodash'
 // import { pubsub } from './subscriptions'
 
 const resolveFunctions = {
   Query: {
     /*codes () {
-     return codeSchema.find({}).exec()
+     return codesSchema.find({}).exec()
+     }
+     ,
+     commands () {
+     console.log('llego aqui ? ')
+     return commandsSchema.find({}).exec() // 58f2a89a2463a62024505ecd
      },
-     */
-    commands () {
-      console.log('llego aqui ? ')
-      // return commandsSchema.find({}).exec() // 58f2a89a2463a62024505ecd
-    },
-    command (root, arg, context) {
-      if (arg.id) {
-        return commandsSchema.findById(arg.id)
-          .then((data) => {
-          console.log('----')
-            console.log(data)
-            return data
-          }).catch((error) => {
-            return error
-          })
-      } else {
-        return null
-      }
-    }
+     command (root, arg, context) {
+     if (arg.id && mongoose.Types.ObjectId.isValid(arg.id)) {
+     return commandsSchema.findById(arg.id)
+     .then((data) => {
+     return data
+     }).catch((error) => {
+     return error
+     })
+     } else {
+     return new Error('Id invalid')
+     }
+     }*/
   },
   Mutation: {
-    addCommand (_, {tag, description, subCommand}) {
-      return commandsSchema.create({tag: tag, description: description, subCommand: subCommand}, (err, data) => {
-        if (err) {
-          console.log(err)
-          return err
-        } else {
-          console.log(data)
-          return data
-        }
-      })
-    }
+    /*
+     addCommand (_, {tag, description, subCommand}) {
+     return commandsSchema.create({tag: tag, description: description, subCommand: subCommand}, (err, data) => {
+     if (err) {
+     console.log(err)
+     return err
+     } else {
+     console.log(data)
+     return data
+     }
+     })
+     },
+     addCode (_, {title, description, code}) {
+     return codesSchema.create({title, description, code}, (err, data) => {
+     if (err) {
+     return err
+     } else {
+     return data
+     }
+     })
+     }*/
   }
 
   /*Mutation: {
@@ -69,5 +85,12 @@ const resolveFunctions = {
    },
    }*/
 }
+
+resolveFunctions.Query.command = commandsQuery.command
+resolveFunctions.Query.commands = commandsQuery.commands
+resolveFunctions.Query.codes = codesQuery.codes
+
+resolveFunctions.Mutation.addCode = codesMutation.addCode
+resolveFunctions.Mutation.addCommand = commandsMutation.addCommand
 
 export default resolveFunctions
