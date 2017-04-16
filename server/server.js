@@ -14,7 +14,7 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import routes from './routers/index'
-import api from './routers/api'
+// import api from './routers/api'
 import passport from 'passport'
 //import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
 
@@ -44,7 +44,7 @@ app.use(passport.initialize())
 
 
 app.use('/', routes)
-app.use('/api', api)
+// app.use('/api', api)
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({
   schema,

@@ -1,7 +1,7 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import schema from './schema'
 import mutation from './mutation'
-import resolvers from './resolvers/resolvers'
+import resolvers from './resolvers'
 
 let typeDefs = ``
 

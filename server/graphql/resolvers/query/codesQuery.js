@@ -1,7 +1,7 @@
-import codesSchema from '../../../models/codesSchema'
+import codesController from '../../../controllers/codesController'
 
-export default   {
+export default {
   codes () {
-    return codesSchema.find({}).exec()
+    return codesController.all()
   }
 }
