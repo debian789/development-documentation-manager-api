@@ -11,5 +11,6 @@ type Codes {
   description: String
   code: String!
 }
+
 `
 export default codesSchema

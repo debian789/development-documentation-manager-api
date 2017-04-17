@@ -11,6 +11,7 @@ type Query {
  commands: [Commands]
  
  codes: [Codes]
+ code(id: String): Codes
  
   # comment(id: String): Comment
   #  codes: [Codes]

@@ -10,7 +10,4 @@ type Mutation {
 ${stringMutation}
 }
 `
-
-//console.log('-------llllllllllllllllllllllllllll')
-//console.log(mutation)
 export default mutation
