@@ -1,64 +1,22 @@
 import codesSchema from '../models/codesSchema'
-import mongoose from 'mongoose'
+import QueryHelper from '../common/helpers/QueryHelper'
+
+let codesQuery = new QueryHelper(codesSchema)
 
 export default {
   all () {
-    return codesSchema.find({}).exec()
+    return codesQuery.all()
   },
   findById (id) {
-    if (id && mongoose.Types.ObjectId.isValid(id)) {
-      return codesSchema.findById(id)
-        .then((data) => {
-          return data
-        }).catch((error) => {
-          return error
-        })
-    } else {
-      return new Error('Id invalid')
-    }
+    return codesQuery.findById(id)
   },
   create (title, description, code) {
-    return codesSchema.create({title, description, code}, (err, data) => {
-      if (err) {
-        return err
-      } else {
-        return data
-      }
-    })
+    return codesQuery.create({title, description, code})
   },
   update (id, title, description, code) {
-    if (id && mongoose.Types.ObjectId.isValid(id)) {
-      console.log(id)
-      return codesSchema.findById(id).then((data) => {
-        if (data) {
-          data.title = title
-          data.description = description
-          data.code = code
-          data.save()
-        }
-
-        return data
-      }).catch(() => {
-        return new Error('Not found')
-      })
-    } else {
-      return new Error('Id invalid')
-    }
+    return codesQuery.update(id, {title, description, code})
   },
   delete (id) {
-    if (id && mongoose.Types.ObjectId.isValid(id)) {
-      return codesSchema.findById(id).then((data) => {
-        if (data) {
-          data.remove()
-          return data
-        } else {
-          return new Error('not found')
-        }
-      }).catch((err) => {
-        return new Error('not found')
-      })
-    } else {
-      return new Error('Id invalid')
-    }
+    return codesQuery.delete(id)
   }
 }

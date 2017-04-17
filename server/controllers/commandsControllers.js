@@ -1,52 +1,23 @@
 'use strict'
 import commandsSchema from '../models/commandsSchema'
-import mongoose from 'mongoose'
+import QueryHelper from '../common/helpers/QueryHelper'
+
+let commandQuery = new QueryHelper(commandsSchema)
 
 export default {
   all () {
-    console.log('llego aqui ? ')
-    return commandsSchema.find({}).exec()
+    return commandQuery.all()
   },
-  findById (root, arg, context) {
-    if (arg.id && mongoose.Types.ObjectId.isValid(arg.id)) {
-      return commandsSchema.findById(arg.id)
-        .then((data) => {
-          return data
-        }).catch((error) => {
-          return error
-        })
-    } else {
-      return new Error('Id invalid')
-    }
+  findById (id) {
+    return commandQuery.findById(id)
   },
-  create (tag, description, subCommand) {
-    return commandsSchema.create({tag, description, subCommand}, (err, data) => {
-      if (err) {
-        console.log(err)
-        return err
-      } else {
-        console.log(data)
-        return data
-      }
-    })
+  create (tag, description, subComman) {
+    return commandQuery.create({tag, description, subComman})
   },
   update (id, tag, description, subCommand) {
-    if (id && mongoose.Types.ObjectId.isValid(id)) {
-      return commandsSchema.findById(id).then((data) => {
-        if (data) {
-          data.tag = tag
-          data.description = description
-          data.subCommand = subCommand
-          data.save()
-        }
-      }).catch(() => {
-        return new Error('Not found')
-      })
-    } else {
-      return new Error('Id invalid')
-    }
+    return commandQuery.update(id, {tag, description, subCommand})
   },
-  delete(id) {
-
+  delete (id) {
+    return commandQuery.delete(id)
   }
 }

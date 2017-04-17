@@ -11,6 +11,7 @@ const resolveFunctions = {
 resolveFunctions.Query.command = commandsQuery.command
 resolveFunctions.Query.commands = commandsQuery.commands
 resolveFunctions.Query.codes = codesQuery.codes
+resolveFunctions.Query.code = codesQuery.code
 
 resolveFunctions.Mutation.addCode = codesMutation.addCode
 resolveFunctions.Mutation.updateCode = codesMutation.updateCode

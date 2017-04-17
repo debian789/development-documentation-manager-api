@@ -1,12 +1,6 @@
 import mongoose from 'mongoose'
+import objectUtil from '../utils/objectUtil'
 
-function assignValue (objectReference, objectData) {
-  for (let i in objectData) {
-    if (objectReference.hasOwnProperty(i)) {
-      objectReference[i] = objectData[i]
-    }
-  }
-}
 
 export default class QueryHelper {
   constructor (model) {
@@ -41,15 +35,14 @@ export default class QueryHelper {
     })
   }
 
-  update (id, title, description, code) {
+  update (id, objectData) {
     if (id && mongoose.Types.ObjectId.isValid(id)) {
-      console.log(id)
-      return codesSchema.findById(id).then((data) => {
+      return this.model.findById(id).then((data) => {
         if (data) {
-          data.title = title
-          data.description = description
-          data.code = code
-
+          console.log('----------------------')
+          console.log(data)
+          data = objectUtil.assignValueToObject(data, objectData)
+          console.log(data)
           data.save()
         }
 
