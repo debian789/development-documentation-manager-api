@@ -1,31 +1,46 @@
-import codesSchema from '../models/codesSchema'
 import mongoose from 'mongoose'
 
-export default {
+function assignValue (objectReference, objectData) {
+  for (let i in objectData) {
+    if (objectReference.hasOwnProperty(i)) {
+      objectReference[i] = objectData[i]
+    }
+  }
+}
+
+export default class QueryHelper {
+  constructor (model) {
+    this.model = model
+  }
+
   all () {
-    return codesSchema.find({}).exec()
-  },
+    return this.model.find({}).exec()
+  }
+
   findById (id) {
     if (id && mongoose.Types.ObjectId.isValid(id)) {
-      return codesSchema.findById(id)
+      return this.model.findById(id)
         .then((data) => {
           return data
-        }).catch((error) => {
+        })
+        .catch((error) => {
           return error
         })
     } else {
       return new Error('Id invalid')
     }
-  },
-  create (title, description, code) {
-    return codesSchema.create({title, description, code}, (err, data) => {
+  }
+
+  create (objectCreate) {
+    return this.model.create(objectCreate, (err, data) => {
       if (err) {
         return err
       } else {
         return data
       }
     })
-  },
+  }
+
   update (id, title, description, code) {
     if (id && mongoose.Types.ObjectId.isValid(id)) {
       console.log(id)
@@ -34,6 +49,7 @@ export default {
           data.title = title
           data.description = description
           data.code = code
+
           data.save()
         }
 
@@ -44,10 +60,11 @@ export default {
     } else {
       return new Error('Id invalid')
     }
-  },
+  }
+
   delete (id) {
     if (id && mongoose.Types.ObjectId.isValid(id)) {
-      return codesSchema.findById(id).then((data) => {
+      return this.model.findById(id).then((data) => {
         if (data) {
           data.remove()
           return data
@@ -61,4 +78,5 @@ export default {
       return new Error('Id invalid')
     }
   }
+
 }

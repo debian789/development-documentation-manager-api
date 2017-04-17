@@ -29,5 +29,24 @@ export default {
         return data
       }
     })
+  },
+  update (id, tag, description, subCommand) {
+    if (id && mongoose.Types.ObjectId.isValid(id)) {
+      return commandsSchema.findById(id).then((data) => {
+        if (data) {
+          data.tag = tag
+          data.description = description
+          data.subCommand = subCommand
+          data.save()
+        }
+      }).catch(() => {
+        return new Error('Not found')
+      })
+    } else {
+      return new Error('Id invalid')
+    }
+  },
+  delete(id) {
+
   }
 }
