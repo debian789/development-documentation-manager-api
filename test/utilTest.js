@@ -3,15 +3,14 @@
 import objectUtil from '../server/common/utils/objectUtil'
 const test = require('ava')
 
-test('It should valid the type of input data', t => {
+test('It should assign value to object reference in assignValueToObject', t => {
+
   let reference = ''
   let values = {description: 'world', code: 'code 123'}
   let result = objectUtil.assignValueToObject(reference, values)
   t.is(result, undefined)
-})
 
-test('It should assign value to object reference in assignValueToObject', t => {
-  let reference = {
+  reference = {
     _id: '58f38d60852f851b9eacb7ba',
     title: 'hello',
     code: 'ls -la',
@@ -19,8 +18,8 @@ test('It should assign value to object reference in assignValueToObject', t => {
     is_edit: false
   }
 
-  let values = {description: 'world', code: 'code 123'}
-  let result = objectUtil.assignValueToObject(reference, values)
+  values = {description: 'world', code: 'code 123'}
+  result = objectUtil.assignValueToObject(reference, values)
 
   t.is(result.description, 'world')
   t.is(result.title, 'hello')

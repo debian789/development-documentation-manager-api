@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import objectUtil from '../utils/objectUtil'
 
-
 export default class QueryHelper {
   constructor (model) {
     this.model = model
@@ -35,14 +34,18 @@ export default class QueryHelper {
     })
   }
 
-  update (id, objectData) {
+  update (id, objectData, subData) {
     if (id && mongoose.Types.ObjectId.isValid(id)) {
       return this.model.findById(id).then((data) => {
         if (data) {
-          console.log('----------------------')
-          console.log(data)
+          if (subData) {
+            let subDataUpdate = data[subData]
+            if (Array.isArray(subDataUpdate)) {
+              subDataUpdate.push(objectData)
+              data[subData] = subDataUpdate
+            }
+          }
           data = objectUtil.assignValueToObject(data, objectData)
-          console.log(data)
           data.save()
         }
 

@@ -3,7 +3,9 @@ export default {
     if (typeof (objectReference) === 'object' && typeof (objectData) === 'object') {
 
       for (let i in objectData) {
-        objectReference[i] = objectData[i]
+        if (objectData[i] === '' || objectData[i]) {
+          objectReference[i] = objectData[i]
+        }
       }
 
       return objectReference

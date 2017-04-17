@@ -1,9 +1,13 @@
 import commandsSchema from './commandsSchema'
 import codesSchema from './codesSchema'
+import projectsSchema from './projectsSchema'
+import subProjectsSchema from './subProjectsSchema'
 
 let query = `
 ${commandsSchema}
 ${codesSchema}
+${projectsSchema}
+${subProjectsSchema}
 
 # the schema allows the following query:
 type Query {
@@ -12,6 +16,8 @@ type Query {
  
  codes: [Codes]
  code(id: String): Codes
+ 
+ projects: [Projects]
  
   # comment(id: String): Comment
   #  codes: [Codes]

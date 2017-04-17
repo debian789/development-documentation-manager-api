@@ -1,7 +1,9 @@
 import commandsQuery from './query/commandsQuery'
 import codesQuery from './query/codesQuery'
+import projectsQuery from './query/projectsQuery'
 import codesMutation from './mutation/codesMutation'
 import commandsMutation from './mutation/commandsMutation'
+import projectsMutation from './mutation/projectsMutation'
 
 const resolveFunctions = {
   Query: {},
@@ -10,13 +12,20 @@ const resolveFunctions = {
 
 resolveFunctions.Query.command = commandsQuery.command
 resolveFunctions.Query.commands = commandsQuery.commands
+
 resolveFunctions.Query.codes = codesQuery.codes
 resolveFunctions.Query.code = codesQuery.code
+
+resolveFunctions.Query.projects = projectsQuery.projects
 
 resolveFunctions.Mutation.addCode = codesMutation.addCode
 resolveFunctions.Mutation.updateCode = codesMutation.updateCode
 resolveFunctions.Mutation.removeCode = codesMutation.removeCode
 resolveFunctions.Mutation.addCommand = commandsMutation.addCommand
+
+resolveFunctions.Mutation.addProject = projectsMutation.addProject
+resolveFunctions.Mutation.updateProject = projectsMutation.updateProject
+resolveFunctions.Mutation.removeProject = projectsMutation.removeProject
 
 export default resolveFunctions
 
