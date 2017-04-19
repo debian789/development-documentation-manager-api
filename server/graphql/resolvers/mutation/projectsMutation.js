@@ -9,5 +9,8 @@ export default {
   },
   removeProject (_, {id}) {
     return projectController.delete(id)
+  },
+  addSubProject (_, {id, title,body}) {
+    return projectController.addSubProject(id,title,body)
   }
 }

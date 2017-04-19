@@ -6,8 +6,8 @@ import subProjectsSchema from './subProjectsSchema'
 let query = `
 ${commandsSchema}
 ${codesSchema}
-${projectsSchema}
 ${subProjectsSchema}
+${projectsSchema}
 
 # the schema allows the following query:
 type Query {

@@ -27,6 +27,8 @@ resolveFunctions.Mutation.addProject = projectsMutation.addProject
 resolveFunctions.Mutation.updateProject = projectsMutation.updateProject
 resolveFunctions.Mutation.removeProject = projectsMutation.removeProject
 
+resolveFunctions.Mutation.addSubProject = projectsMutation.addSubProject
+
 export default resolveFunctions
 
 /*Mutation: {

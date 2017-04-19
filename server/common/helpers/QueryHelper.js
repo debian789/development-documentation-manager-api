@@ -35,6 +35,7 @@ export default class QueryHelper {
   }
 
   update (id, objectData, subData) {
+    console.log(id)
     if (id && mongoose.Types.ObjectId.isValid(id)) {
       return this.model.findById(id).then((data) => {
         if (data) {
@@ -46,6 +47,7 @@ export default class QueryHelper {
             }
           }
           data = objectUtil.assignValueToObject(data, objectData)
+
           data.save()
         }
 

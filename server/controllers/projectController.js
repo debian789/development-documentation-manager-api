@@ -14,7 +14,7 @@ export default {
     return projectsQuery.create({name, description})
   },
   addSubProject (id, title, body) {
-    return projectsQuery.update(id, {title, body}, 'subProject')
+    return projectsQuery.update(id, {title, body}, 'subProjects')
   },
   getSubProject (id) {
     

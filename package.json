@@ -37,6 +37,7 @@
     "standard": "^10.0.1",
     "subscriptions-transport-ws": "^0.5.5-alpha.0",
     "underscore": "^1.8.3",
+    "uuid": "^3.0.1",
     "validator": "^7.0.0",
     "winston": "^2.3.1"
   },
@@ -60,9 +61,13 @@
     ]
   },
   "ava": {
-    "require": ["babel-register"]
+    "require": [
+      "babel-register"
+    ]
   },
   "babel": {
-    "presets": ["@ava/stage-4"]
+    "presets": [
+      "@ava/stage-4"
+    ]
   }
 }
