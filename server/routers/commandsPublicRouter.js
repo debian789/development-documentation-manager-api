@@ -2,7 +2,7 @@
 
 import express from 'express'
 import commandsSchema from '../models/commandsSchema'
-import CommandPublicControllers from '../controllers/commandPublicControllers'
+import CommandPublicControllers from '../controllers/commandsControllers'
 
 const commandPublicControllers = new CommandPublicControllers(commandsSchema)
 const router = express.Router()

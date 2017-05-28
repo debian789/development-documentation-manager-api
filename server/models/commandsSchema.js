@@ -5,16 +5,17 @@ import mongoose from 'mongoose'
 let Schema = mongoose.Schema
 
 let commandsSchema = new Schema({
-  title: {type: String, required: true},
-  description: {type: String, required: false},
+  tag: {type: String, required: true},
+  // description: {type: String, required: false},
   is_edit: {type: Boolean, default: false},
   is_public: {type: Boolean, default: false},
-  dateCreate: {type: Date, default: Date.now},
-  user: {type: Schema.ObjectId, ref: 'User'},
+  createAt: {type: Date, default: Date.now},
+  // user: {type: Schema.ObjectId, ref: 'User'},
   // ItemsCommand: [{type: Schema.ObjectId, ref: 'ItemsComandSchema'}]
-  itemsCommand: [{
+  subCommand: [{
     command: {type: String, required: true},
-    description: {type: String, required: false}
+    description: {type: String, required: false},
+    createAt: {type: Date, default: Date.now}
   }]
 })
 
