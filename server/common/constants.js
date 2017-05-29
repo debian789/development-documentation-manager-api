@@ -6,6 +6,7 @@ export const SERVER = {
 
 export const DATA_BASE = {
   HOST_DB: process.env.HOST_DB || 'localhost',
-  NAME_DB: process.env.NAME_DB || 'graphql'
+  NAME_DB: process.env.NAME_DB || 'graphql',
+  USER_DB: process.env.USER_DB || '',
+  PASS_DB: process.env.PASS_DB || ''
 }
-
