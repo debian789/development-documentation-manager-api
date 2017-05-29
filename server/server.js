@@ -15,8 +15,10 @@ import  { DATA_BASE, SERVER } from './common/constants'
 
 // Connect mongo database
 if (DATA_BASE.USER_DB && DATA_BASE.PASS_DB) {
+  console.log(`mongodb://${DATA_BASE.USER_DB}:${DATA_BASE.PASS_DB}@${DATA_BASE.HOST_DB}:${DATA_BASE.PORT_DB}/${DATA_BASE.NAME_DB}`)
   mongoose.connect(`mongodb://${DATA_BASE.USER_DB}:${DATA_BASE.PASS_DB}@${DATA_BASE.HOST_DB}:${DATA_BASE.PORT_DB}/${DATA_BASE.NAME_DB}`)
 } else {
+  console.log(`mongodb://${DATA_BASE.HOST_DB}:${DATA_BASE.PORT_DB}/${DATA_BASE.NAME_DB}`)
   mongoose.connect(`mongodb://${DATA_BASE.HOST_DB}:${DATA_BASE.PORT_DB}/${DATA_BASE.NAME_DB}`)
 }
 
