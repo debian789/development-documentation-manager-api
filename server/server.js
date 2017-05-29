@@ -14,7 +14,7 @@ import passport from 'passport'
 import  { DATA_BASE, SERVER } from './common/constants'
 
 // Connect mongo database
-mongoose.connect(`mongodb://${DATA_BASE.HOST_DB}/${DATA_BASE.NAME_DB}`,{
+mongoose.connect(`mongodb://${DATA_BASE.HOST_DB}:${DATA_BASE.PORT_DB}/${DATA_BASE.NAME_DB}`,{
   user: DATA_BASE.USER_DB,
   pass: DATA_BASE.PASS_DB
 })
