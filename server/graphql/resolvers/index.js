@@ -21,7 +21,10 @@ resolveFunctions.Query.projects = projectsQuery.projects
 resolveFunctions.Mutation.addCode = codesMutation.addCode
 resolveFunctions.Mutation.updateCode = codesMutation.updateCode
 resolveFunctions.Mutation.removeCode = codesMutation.removeCode
+
 resolveFunctions.Mutation.addCommand = commandsMutation.addCommand
+resolveFunctions.Mutation.updateCommand = commandsMutation.updateCommand
+resolveFunctions.Mutation.removeCommand = commandsMutation.removeCommand
 
 resolveFunctions.Mutation.addProject = projectsMutation.addProject
 resolveFunctions.Mutation.updateProject = projectsMutation.updateProject
